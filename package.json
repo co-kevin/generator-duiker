@@ -1,0 +1,12 @@
+{
+  "name": "generator-91zdan",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "files": [
+    "app"
+  ],
+  "dependencies": {
+    "yeoman-generator": "^2.0.1"
+  }
+}
