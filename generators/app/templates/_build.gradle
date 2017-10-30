@@ -1,0 +1,46 @@
+buildscript {
+	ext {
+		springBootVersion = '1.5.8.RELEASE'
+	}
+	repositories {
+		mavenCentral()
+	}
+	dependencies {
+		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+	}
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+
+group = 'com.zdan91'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+}
+
+
+ext {
+	springCloudVersion = 'Dalston.SR4'
+}
+
+dependencies {
+    compile('org.liquibase:liquibase-core')
+    compile('com.baomidou:mybatisplus-spring-boot-starter:1.0.5')
+    compile('com.baomidou:mybatis-plus:2.1.4')
+    compile('javax.persistence:javax.persistence-api:2.2')
+    compile('mysql:mysql-connector-java')
+
+    compile('org.springframework.cloud:spring-cloud-starter-eureka-server')
+    compile('org.springframework.cloud:spring-cloud-starter-zuul')
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+dependencyManagement {
+	imports {
+		mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+	}
+}
