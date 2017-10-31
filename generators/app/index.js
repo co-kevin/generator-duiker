@@ -30,17 +30,20 @@ module.exports = class extends Generator {
   _run (answers) {
     answers.packagePath = answers.group.replace('\.', '/')
     answers.nameUpperFirst = _string.upperFirst(answers.name)
-    console.log(answers)
-    // this._copyStaticFiles()
+    
+    this._copyStaticFiles()
+    this._copyTplJava(answers)
+    this._copyTplYml(answers)
   }
 
   _copyTplJava(data) {
-    this.fs.copyTpl(this.templatePath('src/main/package/_Application.java')
-      , this.destinationPath(`src/main/${data.packagePath}/${data.name}/${data.nameUpperFirst}Application.java`, data))
+    this.fs.copyTpl(this.templatePath('src/main/java/package/_Application.java')
+      , this.destinationPath(`src/main/java/${data.packagePath}/${data.name}/${data.nameUpperFirst}Application.java`), data)
   }
 
-  _copyTplYml() {
-
+  _copyTplYml(data) {
+    this.fs.copyTpl(this.templatePath('src/main/resources/_application.yml')
+      , this.destinationPath(`src/main/resources/application.yml`), data)
   }
 
   _copyStaticFiles() {
