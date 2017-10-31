@@ -1,4 +1,4 @@
-package com.insurance.member;
+package <%= group %>.<%= name %>;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -9,18 +9,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 @EnableEurekaClient
 @SpringBootApplication
-@RestController
-public class MemberApplication {
+public class <%= nameUpperFirst %>Application {
 
     public static void main(String[] args) {
-        SpringApplication.run(MemberApplication.class, args);
-    }
-
-    @Value("${server.port}")
-    private String port;
-
-    @GetMapping("hi")
-    public String home() {
-        return "hi member micro service, i am from port:" + port;
+        SpringApplication.run(<%= nameUpperFirst %>Application.class, args);
     }
 }
