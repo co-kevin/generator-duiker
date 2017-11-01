@@ -59,6 +59,8 @@ module.exports = class extends Generator {
     for (let file of files) {
       this.fs.copy(this.templatePath(file), this.destinationPath(file))
     }
+    this.fs.copyTpl(this.templatePath('_build.gradle')
+    , this.destinationPath(`build.gradle`), {})
   }
 }
 
