@@ -56,7 +56,6 @@ dependencies {
     compile("org.springframework.cloud:spring-cloud-starter-eureka-server"){
         exclude group:'javax.servlet'
     }
-    compile("org.springframework.cloud:spring-cloud-starter-zuul")
     compile("io.springfox:springfox-swagger2:${springfox_version}")
     compile("io.springfox:springfox-swagger-ui:${springfox_version}")
     testCompile('org.springframework.boot:spring-boot-starter-test')
