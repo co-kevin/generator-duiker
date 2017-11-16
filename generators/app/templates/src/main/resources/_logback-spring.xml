@@ -22,9 +22,7 @@
     </appender>
 -->
 
-    <logger name="<%= groupCase.splitByDot %>" level="#logback.loglevel#"/>
-
-    <logger name="io.github.jhipster" level="#logback.loglevel#"/>
+    <logger name="<%= groupCases.splitByDot %>" level="DEBUG"/>
 
     <logger name="javax.activation" level="WARN"/>
     <logger name="javax.mail" level="WARN"/>
@@ -41,9 +39,6 @@
     <logger name="org.apache" level="WARN"/>
     <logger name="org.apache.catalina.startup.DigesterFactory" level="OFF"/>
     <logger name="org.bson" level="WARN"/>
-    <logger name="org.hibernate.validator" level="WARN"/>
-    <logger name="org.hibernate" level="WARN"/>
-    <logger name="org.hibernate.ejb.HibernatePersistence" level="OFF"/>
     <logger name="org.springframework" level="WARN"/>
     <logger name="org.springframework.web" level="WARN"/>
     <logger name="org.springframework.security" level="WARN"/>

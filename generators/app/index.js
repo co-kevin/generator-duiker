@@ -35,7 +35,7 @@ module.exports = class extends Generator {
     this._copyTplJava(answers)
     this._copyTplYml(answers)
     this._copyMybatis(answers)
-    this.fs.copyTpl(this.templatePath(`_README.md`), this.destinationPath(`README.md`), answers)
+    this._copyOther(answers)
   }
 
   // 基于用户输入的 name 变种: ocr bill
@@ -85,6 +85,17 @@ module.exports = class extends Generator {
       , this.destinationPath(`${baseDestPath}/config/SwaggerConfiguration.java`), data)
     this.fs.copyTpl(this.templatePath('_build.gradle')
       , this.destinationPath(`build.gradle`), data)
+    this._copyPackageInfo(data)
+  }
+
+  // 输出所有 package-info.java
+  _copyPackageInfo(data) {
+    const baseTplPath = 'src/main/java/package'
+    const baseDestPath = `src/main/java/${data.groupCases.splitBySlash}/${data.nameCases.splitBySlash}`
+    this.fs.copyTpl(this.templatePath(`${baseTplPath}/exception/_package-info.java`), this.destinationPath(`${baseDestPath}/exception/package-info.java`), data)
+    this.fs.copyTpl(this.templatePath(`${baseTplPath}/model/_package-info.java`), this.destinationPath(`${baseDestPath}/model/package-info.java`), data)
+    this.fs.copyTpl(this.templatePath(`${baseTplPath}/service/_package-info.java`), this.destinationPath(`${baseDestPath}/service/package-info.java`), data)
+    this.fs.copyTpl(this.templatePath(`${baseTplPath}/web/rest/_package-info.java`), this.destinationPath(`${baseDestPath}/web/rest/package-info.java`), data)
   }
 
   // 输出所有 yml 格式的模板文件
@@ -97,6 +108,12 @@ module.exports = class extends Generator {
       , this.destinationPath(`src/main/resources/application-test.yml`), data)
     this.fs.copyTpl(this.templatePath('src/main/resources/_application-prod.yml')
       , this.destinationPath(`src/main/resources/application-prod.yml`), data)
+  }
+
+  // 输出零碎文件
+  _copyOther(data) {
+    this.fs.copyTpl(this.templatePath(`_README.md`), this.destinationPath(`README.md`), data)
+    this.fs.copyTpl(this.templatePath(`src/main/resources/_logback-spring.xml`), this.destinationPath(`src/main/resources/logback-spring.xml`), data)
   }
 
   _copyStaticFiles() {
