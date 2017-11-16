@@ -28,17 +28,41 @@ module.exports = class extends Generator {
 
   // callback when answered
   _run (answers) {
-    answers.packagePath = answers.group.replace('\.', '/')
-    answers.nameUpperFirst = _string.upperFirst(answers.name)
+    answers.nameCases = this._nameCase(answers.name)
+    answers.groupCases = this._groupCase(answers.group)
+    console.log(answers)
     
     this._copyStaticFiles()
     this._copyTplJava(answers)
-    this._copyTplYml(answers)
+    // this._copyTplYml(answers)
+  }
+
+  // 基于用户输入的 name 变种: ocr bill
+  _nameCase (name) {
+    const kebab = _string.kebabCase(name)
+    return {
+      // 首字母大写驼峰写法
+      hump: _string.upperFirst(_string.camelCase(name)),
+      // 字母小写，单词间横线分割
+      kebab,
+      // 字母小写，单词间 . 分割
+      splitByDot: kebab.split('-').join('.'),
+      // 字母小写，单词间 / 分割
+      splitBySlash: kebab.split('-').join('/'),
+    }
+  }
+
+  // 基于用户输入的 group 变种: com.zdan91
+  _groupCase (group) {
+    return {
+      // 字母小写，单词间 / 分割
+      splitBySlash: group.split('\.').join('/'),
+    }
   }
 
   _copyTplJava(data) {
     this.fs.copyTpl(this.templatePath('src/main/java/package/_Application.java')
-      , this.destinationPath(`src/main/java/${data.packagePath}/${data.name}/${data.nameUpperFirst}Application.java`), data)
+      , this.destinationPath(`src/main/java/${data.groupCases.splitBySlash}/${data.nameCases.splitBySlash}/${data.nameCases.hump}Application.java`), data)
   }
 
   _copyTplYml(data) {
