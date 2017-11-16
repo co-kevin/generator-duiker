@@ -34,6 +34,7 @@ module.exports = class extends Generator {
     this._copyStaticFiles()
     this._copyTplJava(answers)
     this._copyTplYml(answers)
+    this._copyMybatis(answers)
   }
 
   // 基于用户输入的 name 变种: ocr bill
@@ -58,6 +59,13 @@ module.exports = class extends Generator {
       // 字母小写，单词间 / 分割
       splitBySlash: group.split('\.').join('/'),
     }
+  }
+
+  // 输出所有 Mybatis 生成器相关文件
+  _copyMybatis(data) {
+    const basePath = `src/main/resources/mybatis`
+    this.fs.copyTpl(this.templatePath(`${basePath}/_db-mysql.properties`), this.destinationPath(`${basePath}/db-mysql.properties`), data)
+    this.fs.copyTpl(this.templatePath(`${basePath}/_generatorConfig.xml`), this.destinationPath(`${basePath}/generatorConfig.xml`), data)
   }
 
   // 输出所有 java 格式的模板文件
