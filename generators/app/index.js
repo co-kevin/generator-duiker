@@ -8,7 +8,7 @@ module.exports = class extends Generator {
     super(args, opts);
   }
 
-  prompting () {
+  prompting() {
     return this.prompt([{
       type: 'input',
       name: 'group',
@@ -27,7 +27,7 @@ module.exports = class extends Generator {
   }
 
   // callback when answered
-  _run (answers) {
+  _run(answers) {
     answers.nameCases = this._nameCase(answers.name)
     answers.groupCases = this._groupCase(answers.group)
 
@@ -37,7 +37,7 @@ module.exports = class extends Generator {
   }
 
   // 基于用户输入的 name 变种: ocr bill
-  _nameCase (name) {
+  _nameCase(name) {
     const kebab = _string.kebabCase(name)
     return {
       // 首字母大写驼峰写法
@@ -52,7 +52,7 @@ module.exports = class extends Generator {
   }
 
   // 基于用户输入的 group 变种: com.zdan91
-  _groupCase (group) {
+  _groupCase(group) {
     return {
       splitByDot: group,
       // 字母小写，单词间 / 分割
@@ -61,7 +61,7 @@ module.exports = class extends Generator {
   }
 
   // 输出所有 java 格式的模板文件
-  _copyTplJava (data) {
+  _copyTplJava(data) {
     const baseTplPath = 'src/main/java/package'
     const baseDestPath = `src/main/java/${data.groupCases.splitBySlash}/${data.nameCases.splitBySlash}`
     this.fs.copyTpl(this.templatePath(`${baseTplPath}/_Application.java`)
@@ -74,10 +74,12 @@ module.exports = class extends Generator {
       , this.destinationPath(`${baseDestPath}/config/MybatisConfiguration.java`), data)
     this.fs.copyTpl(this.templatePath(`${baseTplPath}/config/_SwaggerConfiguration.java`)
       , this.destinationPath(`${baseDestPath}/config/SwaggerConfiguration.java`), data)
+    this.fs.copyTpl(this.templatePath('_build.gradle')
+      , this.destinationPath(`build.gradle`), data)
   }
 
   // 输出所有 yml 格式的模板文件
-  _copyTplYml (data) {
+  _copyTplYml(data) {
     this.fs.copyTpl(this.templatePath('src/main/resources/_application.yml')
       , this.destinationPath(`src/main/resources/application.yml`), data)
     this.fs.copyTpl(this.templatePath('src/main/resources/_application-dev.yml')
@@ -88,11 +90,12 @@ module.exports = class extends Generator {
       , this.destinationPath(`src/main/resources/application-prod.yml`), data)
   }
 
-  _copyStaticFiles () {
+  _copyStaticFiles() {
     let files = [
       'src/main/resources/liquibase/master.xml',
       'gradle/wrapper/gradle-wrapper.jar',
       'gradle/wrapper/gradle-wrapper.properties',
+      'gradle/mybatis_generate.gradle',
       '.editorconfig',
       '.gitignore',
       'gradlew',
@@ -102,7 +105,5 @@ module.exports = class extends Generator {
     for (let file of files) {
       this.fs.copy(this.templatePath(file), this.destinationPath(file))
     }
-    this.fs.copyTpl(this.templatePath('_build.gradle')
-      , this.destinationPath(`build.gradle`), {})
   }
 }
