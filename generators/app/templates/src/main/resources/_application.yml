@@ -1,9 +1,33 @@
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://localhost:8761/eureka/
-server:
-  port: 8764
+# ===================================================================
+# Standard Spring Boot properties.
+# Full reference is available at:
+# http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+# ===================================================================
+
 spring:
-  application:
-    name: service-<%= name %>
+    profiles:
+        active: dev
+    application:
+        name: service-<%= nameCases.kebab %>
+
+eureka:
+    instance:
+        preferIpAddress: true
+        instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+
+security:
+    basic:
+        enabled: false
+
+info:
+    project:
+        version: 0.0.1-SNAPSHOT
+        title: <%= name %>
+
+eureka:
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8761/eureka/
+
+server:
+    port: 8764
