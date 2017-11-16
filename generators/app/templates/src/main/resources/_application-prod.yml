@@ -6,23 +6,20 @@
 
 spring:
     profiles:
-        active: dev
-    application:
-        name: service-<%= nameCases.kebab %>
+        active: prod
+    datasource:
+        url: jdbc:mysql://localhost:3306/<%= nameCases.kebab %>?useUnicode=true&characterEncoding=utf8&useSSL=false
+        username: root
+        password:
+        driver-class-name: com.mysql.jdbc.Driver
 
 eureka:
-    instance:
-        preferIpAddress: true
-        instance-id: ${spring.cloud.client.ipAddress}:${server.port}
+    client:
+        serviceUrl:
+            defaultZone: http://localhost:8761/eureka/
 
-security:
-    basic:
-        enabled: false
-
-info:
-    project:
-        version: 0.0.1-SNAPSHOT
-        title: <%= name %>
+server:
+    port: 8080
 
 # ===================================================================
 # Application specific properties
