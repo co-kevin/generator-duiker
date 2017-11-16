@@ -54,6 +54,7 @@ module.exports = class extends Generator {
   // 基于用户输入的 group 变种: com.zdan91
   _groupCase (group) {
     return {
+      splitByDot: group,
       // 字母小写，单词间 / 分割
       splitBySlash: group.split('\.').join('/'),
     }
@@ -61,8 +62,18 @@ module.exports = class extends Generator {
 
   // 输出所有 java 格式的模板文件
   _copyTplJava (data) {
-    this.fs.copyTpl(this.templatePath('src/main/java/package/_Application.java')
-      , this.destinationPath(`src/main/java/${data.groupCases.splitBySlash}/${data.nameCases.splitBySlash}/${data.nameCases.hump}Application.java`), data)
+    const baseTplPath = 'src/main/java/package'
+    const baseDestPath = `src/main/java/${data.groupCases.splitBySlash}/${data.nameCases.splitBySlash}`
+    this.fs.copyTpl(this.templatePath(`${baseTplPath}/_Application.java`)
+      , this.destinationPath(`${baseDestPath}/${data.nameCases.hump}Application.java`), data)
+    this.fs.copyTpl(this.templatePath(`${baseTplPath}/config/_Constants.java`)
+      , this.destinationPath(`${baseDestPath}/config/Constants.java`), data)
+    this.fs.copyTpl(this.templatePath(`${baseTplPath}/config/_LiquibaseConfiguration.java`)
+      , this.destinationPath(`${baseDestPath}/config/LiquibaseConfiguration.java`), data)
+    this.fs.copyTpl(this.templatePath(`${baseTplPath}/config/_MybatisConfiguration.java`)
+      , this.destinationPath(`${baseDestPath}/config/MybatisConfiguration.java`), data)
+    this.fs.copyTpl(this.templatePath(`${baseTplPath}/config/_SwaggerConfiguration.java`)
+      , this.destinationPath(`${baseDestPath}/config/SwaggerConfiguration.java`), data)
   }
 
   // 输出所有 yml 格式的模板文件
@@ -79,6 +90,7 @@ module.exports = class extends Generator {
 
   _copyStaticFiles () {
     let files = [
+      'src/main/resources/liquibase/master.xml',
       'gradle/wrapper/gradle-wrapper.jar',
       'gradle/wrapper/gradle-wrapper.properties',
       '.editorconfig',
