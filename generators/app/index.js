@@ -8,19 +8,19 @@ module.exports = class extends Generator {
     super(args, opts);
   }
 
-  prompting() {
+  prompting () {
     return this.prompt([{
-      type    : 'input',
-      name    : 'group',
-      message : 'Your project group',
-      default : this.appgroup, // Default to current folder name
-      store   : true
+      type: 'input',
+      name: 'group',
+      message: 'Your project group',
+      default: this.appgroup, // Default to current folder name
+      store: true
     }, {
-      type    : 'input',
-      name    : 'name',
-      message : 'Your project name',
-      default : this.appname, // Default to current folder name
-      store   : true
+      type: 'input',
+      name: 'name',
+      message: 'Your project name',
+      default: this.appname, // Default to current folder name
+      store: true
     }]).then((answers) => {
       this._run(answers)
     })
@@ -30,7 +30,7 @@ module.exports = class extends Generator {
   _run (answers) {
     answers.nameCases = this._nameCase(answers.name)
     answers.groupCases = this._groupCase(answers.group)
-    
+
     this._copyStaticFiles()
     this._copyTplJava(answers)
     this._copyTplYml(answers)
@@ -59,17 +59,25 @@ module.exports = class extends Generator {
     }
   }
 
-  _copyTplJava(data) {
+  // 输出所有 java 格式的模板文件
+  _copyTplJava (data) {
     this.fs.copyTpl(this.templatePath('src/main/java/package/_Application.java')
       , this.destinationPath(`src/main/java/${data.groupCases.splitBySlash}/${data.nameCases.splitBySlash}/${data.nameCases.hump}Application.java`), data)
   }
 
-  _copyTplYml(data) {
+  // 输出所有 yml 格式的模板文件
+  _copyTplYml (data) {
     this.fs.copyTpl(this.templatePath('src/main/resources/_application.yml')
       , this.destinationPath(`src/main/resources/application.yml`), data)
+    this.fs.copyTpl(this.templatePath('src/main/resources/_application-dev.yml')
+      , this.destinationPath(`src/main/resources/application-dev.yml`), data)
+    this.fs.copyTpl(this.templatePath('src/main/resources/_application-test.yml')
+      , this.destinationPath(`src/main/resources/application-test.yml`), data)
+    this.fs.copyTpl(this.templatePath('src/main/resources/_application-prod.yml')
+      , this.destinationPath(`src/main/resources/application-prod.yml`), data)
   }
 
-  _copyStaticFiles() {
+  _copyStaticFiles () {
     let files = [
       'gradle/wrapper/gradle-wrapper.jar',
       'gradle/wrapper/gradle-wrapper.properties',
@@ -83,12 +91,6 @@ module.exports = class extends Generator {
       this.fs.copy(this.templatePath(file), this.destinationPath(file))
     }
     this.fs.copyTpl(this.templatePath('_build.gradle')
-    , this.destinationPath(`build.gradle`), {})
+      , this.destinationPath(`build.gradle`), {})
   }
-}
-
-function run () {
-  this.fs.copyTpl(this.templatePath('_build.gradle'), this.destinationPath(`build.gradle`))
-  this.fs.copyTpl(this.templatePath('gradle/wrapper/gradle-wrapper.jar'), this.destinationPath(`gradle/wrapper/gradle-wrapper.jar`))
-  this.fs.copyTpl(this.templatePath('gradle/wrapper/gradle-wrapper.properties'), this.destinationPath(`gradle/wrapper/gradle-wrapper.properties`))
 }
