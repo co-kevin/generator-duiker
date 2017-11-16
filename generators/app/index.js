@@ -35,6 +35,7 @@ module.exports = class extends Generator {
     this._copyTplJava(answers)
     this._copyTplYml(answers)
     this._copyMybatis(answers)
+    this.fs.copyTpl(this.templatePath(`_README.md`), this.destinationPath(`README.md`), answers)
   }
 
   // 基于用户输入的 name 变种: ocr bill
@@ -100,14 +101,15 @@ module.exports = class extends Generator {
 
   _copyStaticFiles() {
     let files = [
-      'src/main/resources/liquibase/master.xml',
       'gradle/wrapper/gradle-wrapper.jar',
       'gradle/wrapper/gradle-wrapper.properties',
       'gradle/mybatis_generate.gradle',
       '.editorconfig',
       '.gitignore',
       'gradlew',
-      'gradlew.bat'
+      'gradlew.bat',
+      'CHANGELOG.md',
+      'src/main/resources/liquibase/master.xml'
     ]
 
     for (let file of files) {
