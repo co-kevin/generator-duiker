@@ -83,8 +83,8 @@ module.exports = class extends Generator {
       , this.destinationPath(`${baseDestPath}/config/MybatisConfiguration.java`), data)
     this.fs.copyTpl(this.templatePath(`${baseTplPath}/config/_SwaggerConfiguration.java`)
       , this.destinationPath(`${baseDestPath}/config/SwaggerConfiguration.java`), data)
-    this.fs.copyTpl(this.templatePath('_build.gradle')
-      , this.destinationPath(`build.gradle`), data)
+      this.fs.copyTpl(this.templatePath(`${baseTplPath}/web/rest/vo/_ResponseVO.java`)
+      , this.destinationPath(`${baseDestPath}/web/rest/vo/ResponseVO.java`), data)
     this._copyPackageInfo(data)
   }
 
@@ -112,6 +112,7 @@ module.exports = class extends Generator {
 
   // 输出零碎文件
   _copyOther(data) {
+    this.fs.copyTpl(this.templatePath('_build.gradle'), this.destinationPath(`build.gradle`), data)
     this.fs.copyTpl(this.templatePath(`_README.md`), this.destinationPath(`README.md`), data)
     this.fs.copyTpl(this.templatePath(`src/main/resources/_logback-spring.xml`), this.destinationPath(`src/main/resources/logback-spring.xml`), data)
   }
