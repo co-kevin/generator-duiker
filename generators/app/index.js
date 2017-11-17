@@ -21,6 +21,12 @@ module.exports = class extends Generator {
       message: 'Your project name',
       default: this.appname, // Default to current folder name
       store: true
+    }, {
+      type: 'input',
+      name: 'port',
+      message: 'Your project port',
+      default: this.appport, // Default to current folder name
+      store: true
     }]).then((answers) => {
       this._run(answers)
     })
