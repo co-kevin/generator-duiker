@@ -23,6 +23,7 @@ info:
     project:
         version: 0.0.1-SNAPSHOT
         title: <%= name %>
+        description: 
 
 # ===================================================================
 # Application specific properties
