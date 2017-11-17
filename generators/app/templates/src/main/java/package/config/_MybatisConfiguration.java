@@ -11,4 +11,11 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @EnableTransactionManagement
 @MapperScan("<%= groupCases.splitByDot %>.<%= nameCases.splitByDot %>.mapper*")
 public class MybatisConfiguration {
+    /**
+     * 分页插件
+     */
+    @Bean
+    public PaginationInterceptor paginationInterceptor() {
+        return new PaginationInterceptor();
+    }
 }
