@@ -111,12 +111,14 @@ module.exports = class extends Generator {
       tableName,
       tableComment,
       entityClass: _string.upperFirst(_string.camelCase(tableName)),
+      entityClassCamelCase: _string.camelCase(tableName),
       columns
     }
     const baseDestPath = `src/main/java/${data.groupCases.splitBySlash}/${data.nameCases.splitBySlash}`
     this.fs.copyTpl(this.templatePath(`_Model.java`), this.destinationPath(`${baseDestPath}/model/${data.entityClass}.java`), data)
     this.fs.copyTpl(this.templatePath(`_ModelMapper.java`), this.destinationPath(`${baseDestPath}/mapper/${data.entityClass}Mapper.java`), data)
     this.fs.copyTpl(this.templatePath(`_ModelService.java`), this.destinationPath(`${baseDestPath}/service/${data.entityClass}Service.java`), data)
+    this.fs.copyTpl(this.templatePath(`_ModelResource.java`), this.destinationPath(`${baseDestPath}/web/rest/${data.entityClass}Resource.java`), data)
     this.fs.copyTpl(this.templatePath(`_ModelMapper.xml`), this.destinationPath(`src/main/resources/mapper/${data.entityClass}Mapper.xml`), data)
   }
 
