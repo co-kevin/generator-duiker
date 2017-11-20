@@ -11,7 +11,20 @@ module.exports = class extends Generator {
   }
 
   prompting() {
+    // console.log(this.config.getAll())
     return this.prompt([{
+      type: 'input',
+      name: 'group',
+      message: 'Your project group',
+      default: this.appgroup, // Default to current folder name
+      store: true
+    }, {
+      type: 'input',
+      name: 'name',
+      message: 'Your project name',
+      default: this.appname, // Default to current folder name
+      store: true
+    }, {
       type: 'input',
       name: 'host',
       message: 'Your mysql host',
@@ -54,6 +67,8 @@ module.exports = class extends Generator {
   }
 
   _run(answers) {
+    answers.nameCases = this._nameCase(answers.name)
+    answers.groupCases = this._groupCase(answers.group)
     this._createConnection(answers)
     this._copy(answers)
   }
@@ -63,7 +78,7 @@ module.exports = class extends Generator {
       const columns = await this._queryColumns(answers.database, answers.tableName)
       const tableComment = await this._queryTableComment(answers.database, answers.tableName)
       this._closeConnection()
-      this._copyModel(columns, answers.tableName, tableComment)
+      this._copyModel(columns, answers.tableName, tableComment, answers.nameCases, answers.groupCases)
     } catch (e) {
       throw e
     }
@@ -112,7 +127,7 @@ module.exports = class extends Generator {
     })
   }
 
-  _copyModel(columns, tableName, tableComment) {
+  _copyModel(columns, tableName, tableComment, nameCases, groupCases) {
     // 处理数据库字段类型和字段名到实体类的映射
     for (let column of columns) {
       if ('varchar' === column.DATA_TYPE || 'char' === column.DATA_TYPE) {
@@ -130,17 +145,8 @@ module.exports = class extends Generator {
     }
     // 构造模板数据
     const data = {
-      group: 'com.zdan91',
-      name: 'ocr bill',
-      port: '8080',
-      nameCases:
-        {
-          hump: 'OcrBill',
-          kebab: 'ocr-bill',
-          splitByDot: 'ocr.bill',
-          splitBySlash: 'ocr/bill'
-        },
-      groupCases: { splitByDot: 'com.zdan91', splitBySlash: 'com/zdan91' },
+      nameCases,
+      groupCases,
       tableName,
       tableComment,
       entityClass: _string.upperFirst(_string.camelCase(tableName)),
@@ -166,5 +172,29 @@ module.exports = class extends Generator {
 
   _closeConnection() {
     connection.end()
+  }
+
+  // 基于用户输入的 name 变种: ocr bill
+  _nameCase(name) {
+    const kebab = _string.kebabCase(name)
+    return {
+      // 首字母大写驼峰写法
+      hump: _string.upperFirst(_string.camelCase(name)),
+      // 字母小写，单词间横线分割
+      kebab,
+      // 字母小写，单词间 . 分割
+      splitByDot: kebab.split('-').join('.'),
+      // 字母小写，单词间 / 分割
+      splitBySlash: kebab.split('-').join('/'),
+    }
+  }
+
+  // 基于用户输入的 group 变种: com.zdan91
+  _groupCase(group) {
+    return {
+      splitByDot: group,
+      // 字母小写，单词间 / 分割
+      splitBySlash: group.split('\.').join('/'),
+    }
   }
 }
