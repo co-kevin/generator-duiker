@@ -117,6 +117,7 @@ module.exports = class extends Generator {
     this.fs.copyTpl(this.templatePath(`_Model.java`), this.destinationPath(`${baseDestPath}/model/${data.entityClass}.java`), data)
     this.fs.copyTpl(this.templatePath(`_ModelMapper.java`), this.destinationPath(`${baseDestPath}/mapper/${data.entityClass}Mapper.java`), data)
     this.fs.copyTpl(this.templatePath(`_ModelService.java`), this.destinationPath(`${baseDestPath}/service/${data.entityClass}Service.java`), data)
+    this.fs.copyTpl(this.templatePath(`_ModelMapper.xml`), this.destinationPath(`src/main/resources/mapper/${data.entityClass}Mapper.xml`), data)
   }
 
   _queryDDL(tableName) {
