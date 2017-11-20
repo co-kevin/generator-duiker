@@ -6,8 +6,7 @@ import <%= groupCases.splitByDot %>.<%= nameCases.splitByDot %>.service.<%= enti
 import <%= groupCases.splitByDot %>.<%= nameCases.splitByDot %>.web.rest.vo.ResponseVO;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -15,11 +14,10 @@ import javax.validation.Valid;
 /**
  * Rest controller. <%= entityClass %>
  */
+@Slf4j
 @RestController
 @RequestMapping("/api")
 public class <%= entityClass %>Resource {
-
-    private Logger log = LoggerFactory.getLogger(<%= entityClass %>Resource.class);
 
     private final <%= entityClass %>Service service;
 
