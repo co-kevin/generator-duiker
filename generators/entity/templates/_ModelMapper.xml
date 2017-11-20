@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zdan91.smart.bill.mapper.SampleModelMapper">
-  <resultMap id="BaseResultMap" type="com.zdan91.smart.bill.model.SampleModel">
+<mapper namespace="<%= groupCases.splitByDot %>.<%= nameCases.splitByDot %>.mapper.<%= entityClass %>Mapper">
+  <resultMap id="BaseResultMap" type="<%= groupCases.splitByDot %>.<%= nameCases.splitByDot %>.model.<%= entityClass %>">
+    <%_ for (var i = 0; i < columns.length; i++) { _%>
+      <%_ var column = columns[i] _%>
+      <%_ if ('id' === column.COLUMN_NAME) { _%>
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="double_field" jdbcType="DOUBLE" property="doubleField" />
-    <result column="integer_field" jdbcType="INTEGER" property="integerField" />
-    <result column="string_field" jdbcType="VARCHAR" property="stringField" />
-    <result column="date" jdbcType="TIMESTAMP" property="date" />
-    <result column="bool" jdbcType="BIT" property="bool" />
+      <%_ } else { _%>
+    <result column="<%= column.COLUMN_NAME %>" jdbcType="<%= column.DATA_TYPE.toUpperCase() %>" property="<%= column.fieldName %>" />
+      <%_ } _%>
+    <%_ } _%>
   </resultMap>
-</mapper>
+</mapper> 
