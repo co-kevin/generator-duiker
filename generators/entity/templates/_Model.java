@@ -23,7 +23,7 @@ public class <%= entityClass %> {
     @Column(name = "id")
     private Integer id;
         <%_ } else { _%>
-            <%_ if ('YES' === column.IS_NULLABLE) { _%>
+            <%_ if ('NO' === column.IS_NULLABLE) { _%>
     @NotNull
     @ApiParam(required = true)
             <%_ } _%>

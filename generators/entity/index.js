@@ -161,7 +161,7 @@ module.exports = class extends Generator {
         column.fieldType = 'Date'
       } else if ('int' === column.DATA_TYPE) {
         column.fieldType = 'Integer'
-      } else if ('double' === column.DATA_TYPE) {
+      } else if ('double' === column.DATA_TYPE || 'decimal' === column.DATA_TYPE) {
         column.fieldType = 'Double'
       } else if ('bit' === column.DATA_TYPE) {
         column.fieldType = 'Boolean'
