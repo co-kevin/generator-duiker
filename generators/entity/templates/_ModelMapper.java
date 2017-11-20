@@ -1,7 +1,7 @@
-package com.zdan91.smart.bill.mapper;
+package <%= groupCases.splitByDot %>.<%= nameCases.splitByDot %>.mapper;
 
 import com.baomidou.mybatisplus.mapper.BaseMapper;
-import com.zdan91.smart.bill.model.SampleModel;
+import <%= groupCases.splitByDot %>.<%= nameCases.splitByDot %>.model.<%= entityClass %>;
 
-public interface SampleModelMapper extends BaseMapper<SampleModel> {
+public interface <%= entityClass %>Mapper extends BaseMapper<<%= entityClass %>> {
 }
