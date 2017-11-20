@@ -11,13 +11,46 @@ module.exports = class extends Generator {
   }
 
   prompting() {
-    this._run({
-      host: 'localhost',
-      user: 'root',
-      password: '',
-      database: 'zdan91-smart-bill',
-      tableName: 'sample_model'
+    return this.prompt([{
+      type: 'input',
+      name: 'host',
+      message: 'Your mysql host',
+      default: this.mysqlhost, // Default to current folder name
+      store: true
+    }, {
+      type: 'input',
+      name: 'user',
+      message: 'Your mysql user',
+      default: this.mysqluser, // Default to current folder name
+      store: true
+    }, {
+      type: 'input',
+      name: 'password',
+      message: 'Your mysql password',
+      default: this.mysqlpassword, // Default to current folder name
+      store: true
+    }, {
+      type: 'input',
+      name: 'database',
+      message: 'Your database',
+      default: this.database, // Default to current folder name
+      store: true
+    }, {
+      type: 'input',
+      name: 'tableName',
+      message: 'Your table name',
+      default: this.tableName, // Default to current folder name
+      store: true
+    }]).then((answers) => {
+      this._run(answers)
     })
+    // this._run({
+    //   host: 'localhost',
+    //   user: 'root',
+    //   password: '',
+    //   database: 'zdan91-smart-bill',
+    //   tableName: 'sample_model'
+    // })
   }
 
   _run(answers) {
