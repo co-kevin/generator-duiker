@@ -14,22 +14,22 @@ import java.util.Date;
 @Data
 @Table(name = "<%= tableName %>")
 public class <%= entityClass %> {
-    <%_ for (var i = 0; i < results.length; i++) { _%>
-        <%_ const result = results[i] _%>
+    <%_ for (var i = 0; i < columns.length; i++) { _%>
+        <%_ const column = columns[i] _%>
 
-        <%_ if ('id' === result.COLUMN_NAME) { _%>
+        <%_ if ('id' === column.COLUMN_NAME) { _%>
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Integer id;
         <%_ } else { _%>
-            <%_ if ('YES' === result.IS_NULLABLE) { _%>
+            <%_ if ('YES' === column.IS_NULLABLE) { _%>
     @NotNull
     @ApiParam(required = true)
             <%_ } _%>
-    @ApiModelProperty(value = "<%= result.COLUMN_COMMENT %>")
-    @Column(name = "<%= result.COLUMN_NAME %>")
-    private <%= result.fieldType %> <%= result.fieldName%>;
+    @ApiModelProperty(value = "<%= column.COLUMN_COMMENT %>")
+    @Column(name = "<%= column.COLUMN_NAME %>")
+    private <%= column.fieldType %> <%= column.fieldName%>;
         <%_ } _%>
     <%_ } _%>
 }
