@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  * Mybatis, Mybatis Plus Configuration
  */
 @Configuration
-@EnableTransactionManagement
+@EnableTransactionManagement(proxyTargetClass = true)
 @MapperScan("<%= groupCases.splitByDot %>.<%= nameCases.splitByDot %>.mapper*")
 public class MybatisConfiguration {
     /**
