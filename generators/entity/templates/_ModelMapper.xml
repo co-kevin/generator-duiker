@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="<%= groupCases.splitByDot %>.<%= nameCases.splitByDot %>.mapper.<%= entityClass %>Mapper">
+  <resultMap id="BaseResultMap" type="<%= groupCases.splitByDot %>.<%= nameCases.splitByDot %>.model.<%= entityClass %>">
+    <%_ for (var i = 0; i < columns.length; i++) { _%>
+      <%_ var column = columns[i] _%>
+      <%_ if ('id' === column.COLUMN_NAME) { _%>
+    <id column="id" jdbcType="INTEGER" property="id" />
+      <%_ } else { _%>
+    <result column="<%= column.COLUMN_NAME %>" jdbcType="<%= column.DATA_TYPE.toUpperCase() %>" property="<%= column.fieldName %>" />
+      <%_ } _%>
+    <%_ } _%>
+  </resultMap>
+</mapper> 
