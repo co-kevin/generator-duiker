@@ -1,6 +1,7 @@
 const Generator = require('yeoman-generator')
 const _string = require('lodash/string')
 const mysql = require('mysql')
+const moment = require('moment')
 var connection
 
 module.exports = class extends Generator {
@@ -77,8 +78,10 @@ module.exports = class extends Generator {
     try {
       const columns = await this._queryColumns(answers.database, answers.tableName)
       const tableComment = await this._queryTableComment(answers.database, answers.tableName)
+      const ddl = await this._queryDDL(answers.tableName)
       this._closeConnection()
       this._copyModel(columns, answers.tableName, tableComment, answers.nameCases, answers.groupCases)
+      this._copyLiquibaseChangelog(answers.tableName, ddl)
     } catch (e) {
       throw e
     }
@@ -127,6 +130,28 @@ module.exports = class extends Generator {
     })
   }
 
+  _queryDDL(tableName) {
+    return new Promise(function (resolve, reject) {
+      connection.query(`
+      show create table ${tableName}
+    `, (error, results, fields) => {
+          if (error) return reject(error)
+          resolve(results[0]['Create Table'])
+        })
+    })
+  }
+
+  _copyLiquibaseChangelog(tableName, ddl) {
+    const time = moment().format('YYYYMMDDHHmmss')
+    const filename = `${time}_add_table_${tableName}`
+    const data = {
+      filename,
+      ddl,
+      tableName
+    }
+    this.fs.copyTpl(this.templatePath(`_changelog.sql`), this.destinationPath(`src/main/resources/liquibase/changelog/${filename}.sql`), data)
+  }
+
   _copyModel(columns, tableName, tableComment, nameCases, groupCases) {
     // 处理数据库字段类型和字段名到实体类的映射
     for (let column of columns) {
@@ -159,15 +184,6 @@ module.exports = class extends Generator {
     this.fs.copyTpl(this.templatePath(`_ModelService.java`), this.destinationPath(`${baseDestPath}/service/${data.entityClass}Service.java`), data)
     this.fs.copyTpl(this.templatePath(`_ModelResource.java`), this.destinationPath(`${baseDestPath}/web/rest/${data.entityClass}Resource.java`), data)
     this.fs.copyTpl(this.templatePath(`_ModelMapper.xml`), this.destinationPath(`src/main/resources/mapper/${data.entityClass}Mapper.xml`), data)
-  }
-
-  _queryDDL(tableName) {
-    connection.query(`
-      show create table ${tableName}
-    `, (error, results, fields) => {
-        if (error) throw error
-        console.log(results)
-      })
   }
 
   _closeConnection() {
