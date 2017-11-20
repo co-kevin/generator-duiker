@@ -36,13 +36,12 @@ module.exports = class extends Generator {
   _run(answers) {
     answers.nameCases = this._nameCase(answers.name)
     answers.groupCases = this._groupCase(answers.group)
-    console.log(answers)
 
-    // this._copyStaticFiles()
-    // this._copyTplJava(answers)
-    // this._copyTplYml(answers)
-    // this._copyMybatis(answers)
-    // this._copyOther(answers)
+    this._copyStaticFiles()
+    this._copyTplJava(answers)
+    this._copyTplYml(answers)
+    this._copyMybatis(answers)
+    this._copyOther(answers)
   }
 
   // 基于用户输入的 name 变种: ocr bill
