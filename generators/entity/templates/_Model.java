@@ -9,11 +9,11 @@ import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 /**
- * 表描述
+ * <%= tableComment %>
  */
 @Data
 @Table(name = "<%= tableName %>")
-public class <%= tableName %> {
+public class <%= entityClass %> {
     <%_ for (var i = 0; i < results.length; i++) { _%>
         <%_ const result = results[i] _%>
 
@@ -29,7 +29,7 @@ public class <%= tableName %> {
             <%_ } _%>
     @ApiModelProperty(value = "<%= result.COLUMN_COMMENT %>")
     @Column(name = "<%= result.COLUMN_NAME %>")
-    private <%= result.DATA_TYPE %> <%= result.COLUMN_NAME%>
+    private <%= result.fieldType %> <%= result.fieldName%>;
         <%_ } _%>
     <%_ } _%>
 }

@@ -25,7 +25,6 @@ module.exports = class extends Generator {
     this._query(answers.database, answers.tableName)
     this._queryDDL(answers.tableName)
     console.log('// TODO generate entity')
-    this._closeConnection()
   }
 
   _createConnection(answers) {
@@ -51,11 +50,28 @@ module.exports = class extends Generator {
       and table_name = '${tableName}'
     `, (error, results, fields) => {
         if (error) throw error
-        this._copyModel(results, { tableName })
+        this._copyModel(results, { database, tableName })
       })
   }
 
-  _copyModel(results, answers) {
+  async _copyModel(results, answers) {
+    // 处理数据库字段类型和字段名到实体类的映射
+    for (let result of results) {
+      if ('varchar' === result.DATA_TYPE || 'char' === result.DATA_TYPE) {
+        result.fieldType = 'String'
+      } else if ('timestamp' === result.DATA_TYPE) {
+        result.fieldType = 'Date'
+      } else if ('int' === result.DATA_TYPE) {
+        result.fieldType = 'Integer'
+      } else if ('double' === result.DATA_TYPE) {
+        result.fieldType = 'Double'
+      } else if ('bit' === result.DATA_TYPE) {
+        result.fieldType = 'Boolean'
+      }
+      result.fieldName = _string.camelCase(result.COLUMN_NAME)
+    }
+    const tableComment = await this._queryTableComment(answers.database, answers.tableName)
+    // 构造模板数据
     const data = {
       group: 'com.zdan91',
       name: 'ocr bill',
@@ -69,10 +85,26 @@ module.exports = class extends Generator {
         },
       groupCases: { splitByDot: 'com.zdan91', splitBySlash: 'com/zdan91' },
       tableName: answers.tableName,
+      tableComment,
+      entityClass: _string.upperFirst(_string.camelCase(answers.tableName)),
       results
     }
     const baseDestPath = `src/main/java/${data.groupCases.splitBySlash}/${data.nameCases.splitBySlash}`
     this.fs.copyTpl(this.templatePath(`_Model.java`), this.destinationPath(`${baseDestPath}/model/${answers.tableName}.java`), data)
+  }
+
+  _queryTableComment(database, tableName) {
+    return new Promise(function (resolve, reject) {
+      connection.query(`
+      select table_name, table_comment
+      from information_schema.tables
+      where table_schema = '${database}'
+      and table_name = '${tableName}'
+    `, (error, results, fields) => {
+          if (error) reject(error)
+          resolve(results.table_comment)
+        })
+    })
   }
 
   _queryDDL(tableName) {
