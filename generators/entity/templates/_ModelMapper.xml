@@ -7,7 +7,7 @@
       <%_ if ('id' === column.COLUMN_NAME) { _%>
     <id column="id" jdbcType="INTEGER" property="id" />
       <%_ } else { _%>
-    <result column="<%= column.COLUMN_NAME %>" jdbcType="<%= column.DATA_TYPE.toUpperCase() %>" property="<%= column.fieldName %>" />
+    <result column="<%= column.COLUMN_NAME %>" jdbcType="<%= column.fieldType.toUpperCase() %>" property="<%= column.fieldName %>" />
       <%_ } _%>
     <%_ } _%>
   </resultMap>
