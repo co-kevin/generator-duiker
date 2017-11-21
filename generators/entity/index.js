@@ -157,7 +157,7 @@ module.exports = class extends Generator {
     for (let column of columns) {
       if ('varchar' === column.DATA_TYPE || 'char' === column.DATA_TYPE) {
         column.fieldType = 'String'
-      } else if ('timestamp' === column.DATA_TYPE) {
+      } else if ('timestamp' === column.DATA_TYPE || 'date' === column.DATA_TYPE) {
         column.fieldType = 'Date'
       } else if ('int' === column.DATA_TYPE) {
         column.fieldType = 'Integer'
@@ -165,6 +165,8 @@ module.exports = class extends Generator {
         column.fieldType = 'Double'
       } else if ('bit' === column.DATA_TYPE) {
         column.fieldType = 'Boolean'
+      } else {
+        console.warn(`We don't catch this data type: ${column.DATA_TYPE}`)
       }
       column.fieldName = _string.camelCase(column.COLUMN_NAME)
     }
