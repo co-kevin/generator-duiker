@@ -172,13 +172,16 @@ module.exports = class extends Generator {
         console.warn(`We don't catch this data type: ${column.DATA_TYPE}`)
       }
       column.fieldName = _string.camelCase(column.COLUMN_NAME)
-      column.COLUMN_COMMENT = _trim(column.COLUMN_COMMENT)
+      column.COLUMN_COMMENT = this._trimAll(column.COLUMN_COMMENT)
     }
   }
 
-  // 删除字段注释中的换行符, 防止生成 Java 代码时编译错误
-  _trim(str) {
-    return str.replaceAll('\n', ' ')
+  // 删除字段注释中的所有空白字符, 防止生成 Java 代码时编译错误
+  _trimAll(str) {
+    if (str) {
+      return str.replace(/\s/g,'')
+    }
+    return str
   }
 
   _copyModel(columns, tableName, tableComment, nameCases, groupCases) {
