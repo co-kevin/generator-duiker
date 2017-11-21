@@ -27,7 +27,7 @@ public class <%= entityClass %> {
     @NotNull
     @ApiParam(required = true)
             <%_ } _%>
-    @ApiModelProperty(value = "<%= column.COLUMN_COMMENT %>")
+    @ApiModelProperty(value = "<%- column.COLUMN_COMMENT %>")
     @Column(name = "<%= column.COLUMN_NAME %>")
     private <%= column.fieldType %> <%= column.fieldName%>;
         <%_ } _%>
