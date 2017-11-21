@@ -152,14 +152,17 @@ module.exports = class extends Generator {
     this.fs.copyTpl(this.templatePath(`_changelog.sql`), this.destinationPath(`src/main/resources/liquibase/changelog/${filename}.sql`), data)
   }
 
-  _copyModel(columns, tableName, tableComment, nameCases, groupCases) {
-    // 处理数据库字段类型和字段名到实体类的映射
+  // 处理数据库字段类型和字段名到实体类的映射
+  _handleMapper(columns) {
     for (let column of columns) {
       if ('varchar' === column.DATA_TYPE || 'char' === column.DATA_TYPE) {
         column.fieldType = 'String'
       } else if ('timestamp' === column.DATA_TYPE || 'date' === column.DATA_TYPE) {
         column.fieldType = 'Date'
-      } else if ('int' === column.DATA_TYPE) {
+      } else if ('int' === column.DATA_TYPE ||
+        'smallint' === column.DATA_TYPE ||
+        'tinyint' === column.DATA_TYPE) {
+        column.DATA_TYPE = 'Integer' // 将整数类型的 DATA_TYPE 换成 Integer，在写 Mapper.xml 的时候会用到
         column.fieldType = 'Integer'
       } else if ('double' === column.DATA_TYPE || 'decimal' === column.DATA_TYPE) {
         column.fieldType = 'Double'
@@ -170,6 +173,10 @@ module.exports = class extends Generator {
       }
       column.fieldName = _string.camelCase(column.COLUMN_NAME)
     }
+  }
+
+  _copyModel(columns, tableName, tableComment, nameCases, groupCases) {
+    this._handleMapper(columns)
     // 构造模板数据
     const data = {
       nameCases,
