@@ -4,7 +4,7 @@ buildscript {
 	}
 	repositories {
 		maven {
-            url 'http://maven.aliyun.com/nexus/content/groups/public/'
+            url 'http://nexus.91zdan.com/nexus/content/groups/public/'
         }
 		mavenCentral()
 	}
@@ -45,13 +45,13 @@ dependencies {
 	// 自动生成 MyBatis 相关的依赖
     mybatisGenerator 'org.mybatis.generator:mybatis-generator-core:1.3.5'
     mybatisGenerator 'tk.mybatis:mapper:3.3.9'
-    mybatisGenerator 'mysql:mysql-connector-java'
+    mybatisGenerator 'mysql:mysql-connector-java:5.1.44'
 
-    compile('org.liquibase:liquibase-core')
+    compile('org.liquibase:liquibase-core:3.5.3')
     compile('com.baomidou:mybatisplus-spring-boot-starter:1.0.5')
     compile('com.baomidou:mybatis-plus:2.1.4')
     compile('javax.persistence:javax.persistence-api:2.2')
-    compile('mysql:mysql-connector-java')
+    compile('mysql:mysql-connector-java:5.1.44')
 
     compile("org.springframework.cloud:spring-cloud-starter-eureka-server"){
         exclude group:'javax.servlet'
