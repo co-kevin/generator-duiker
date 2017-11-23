@@ -44,45 +44,64 @@ module.exports = class {
     this.connection.end()
   }
 
-  queryTables() {
-
-  }
-
-  queryColumns(database, tableName) {
-    return new Promise(function (resolve, reject) {
-      connection.query(`
-      select * from information_schema.columns
-      where table_schema = '${database}'
-      and table_name = '${tableName}'
-    `, (error, results, fields) => {
-          if (error) return reject(error)
-          resolve(results)
-        })
+  /**
+   * Show all tables in current database.
+   * Ignore liquibase changelog table DATABASECHANGELOG, DATABASECHANGELOGLOCK
+   */
+  showTables() {
+    return new Promise((resolve, reject) => {
+      this.connection.query(`show tables`, (error, results, fields) => {
+        if (error) return reject(error)
+      })
     })
   }
 
-  queryTableComment(database, tableName) {
-    return new Promise(function (resolve, reject) {
-      connection.query(`
-      select table_name, table_comment
-      from information_schema.tables
-      where table_schema = '${database}'
-      and table_name = '${tableName}'
-    `, (error, results, fields) => {
-          if (error) return reject(error)
-          resolve(results[0].table_comment)
-        })
+  /**
+   * Query table columns information.
+   * From table information_schema.columns.
+   *
+   * @param {*string} tableName
+   */
+  queryColumns(tableName) {
+    return new Promise((resolve, reject) => {
+      const sql = `select * from information_schema.columns
+      where table_schema = '${this.database}' and table_name = '${tableName}'`
+      this.connection.query(sql, (error, results, fields) => {
+        if (error) return reject(error)
+        resolve(results)
+      })
     })
   }
 
+  /**
+   * Query table comment information.
+   * From table information_schema.tables.
+   *
+   * @param {*string} tableName
+   */
+  queryTableComment(tableName) {
+    return new Promise((resolve, reject) => {
+      const sql = `select table_name, table_comment from information_schema.tables
+      where table_schema = '${this.database}' and table_name = '${tableName}'`
+      this.connection.query(sql, (error, results, fields) => {
+        if (error) return reject(error)
+        resolve(results[0].table_comment)
+      })
+    })
+  }
+
+  /**
+   * Query table create sql.
+   * SQL: show create table ${tableName}
+   *
+   * @param {*string} tableName
+   */
   queryDDL(tableName) {
-    return new Promise(function (resolve, reject) {
-      connection.query(`
-      show create table ${tableName}
-    `, (error, results, fields) => {
-          if (error) return reject(error)
-          resolve(results[0]['Create Table'])
-        })
+    return new Promise((resolve, reject) => {
+      this.connection.query(`show create table ${tableName}`, (error, results, fields) => {
+        if (error) return reject(error)
+        resolve(results[0]['Create Table'])
+      })
     })
   }
 }
