@@ -1,70 +1,24 @@
 const Generator = require('yeoman-generator')
 const _string = require('lodash/string')
-const mysql = require('mysql')
 const moment = require('moment')
-var connection
+const Question = require('./question')
+const Connection = require('./connection')
 
 module.exports = class extends Generator {
   // The name `constructor` is important here
   constructor(args, opts) {
     // Calling the super constructor is important so our generator is correctly set up
-    super(args, opts);
+    super(args, opts)
   }
 
-  prompting() {
-    // console.log(this.config.getAll())
-    return this.prompt([{
-      type: 'input',
-      name: 'group',
-      message: 'Your project group',
-      default: this.appgroup, // Default to current folder name
-      store: true
-    }, {
-      type: 'input',
-      name: 'name',
-      message: 'Your project name',
-      default: this.appname, // Default to current folder name
-      store: true
-    }, {
-      type: 'input',
-      name: 'host',
-      message: 'Your mysql host',
-      default: this.mysqlhost, // Default to current folder name
-      store: true
-    }, {
-      type: 'input',
-      name: 'user',
-      message: 'Your mysql user',
-      default: this.mysqluser, // Default to current folder name
-      store: true
-    }, {
-      type: 'input',
-      name: 'password',
-      message: 'Your mysql password',
-      default: this.mysqlpassword, // Default to current folder name
-      store: true
-    }, {
-      type: 'input',
-      name: 'database',
-      message: 'Your database',
-      default: this.database, // Default to current folder name
-      store: true
-    }, {
-      type: 'input',
-      name: 'tableName',
-      message: 'Your table name',
-      default: this.tableName, // Default to current folder name
-      store: true
-    }]).then((answers) => {
-      this._run(answers)
-    })
-    // this._run({
-    //   host: 'localhost',
-    //   user: 'root',
-    //   password: '',
-    //   database: 'zdan91-smart-bill',
-    //   tableName: 'sample_model'
-    // })
+  async prompting() {
+    const question = new Question(this)
+    const mysqlURL = await question.askConnection()
+    this.connection = new Connection(mysqlURL)
+    this.connection.createConnection()
+    // this.connection.queryTables()
+    // const tables = await question.askTables([])
+    // this.connection.close()
   }
 
   _run(answers) {
@@ -85,60 +39,6 @@ module.exports = class extends Generator {
     } catch (e) {
       throw e
     }
-  }
-
-  async _createConnection(answers) {
-    connection = mysql.createConnection({
-      host: answers.host,
-      user: answers.user,
-      password: answers.password,
-      database: answers.database
-    })
-
-    await connection.connect((err) => {
-      if (err) {
-        console.error('error connecting: ' + err.stack);
-        return;
-      }
-    })
-  }
-
-  _queryColumns(database, tableName) {
-    return new Promise(function (resolve, reject) {
-      connection.query(`
-      select * from information_schema.columns
-      where table_schema = '${database}'
-      and table_name = '${tableName}'
-    `, (error, results, fields) => {
-          if (error) return reject(error)
-          resolve(results)
-        })
-    })
-  }
-
-  _queryTableComment(database, tableName) {
-    return new Promise(function (resolve, reject) {
-      connection.query(`
-      select table_name, table_comment
-      from information_schema.tables
-      where table_schema = '${database}'
-      and table_name = '${tableName}'
-    `, (error, results, fields) => {
-          if (error) return reject(error)
-          resolve(results[0].table_comment)
-        })
-    })
-  }
-
-  _queryDDL(tableName) {
-    return new Promise(function (resolve, reject) {
-      connection.query(`
-      show create table ${tableName}
-    `, (error, results, fields) => {
-          if (error) return reject(error)
-          resolve(results[0]['Create Table'])
-        })
-    })
   }
 
   _copyLiquibaseChangelog(tableName, ddl) {
@@ -179,7 +79,7 @@ module.exports = class extends Generator {
   // 删除字段注释中的所有空白字符, 防止生成 Java 代码时编译错误
   _trimAll(str) {
     if (str) {
-      return str.replace(/\s/g,'')
+      return str.replace(/\s/g, '')
     }
     return str
   }
