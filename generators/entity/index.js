@@ -16,8 +16,13 @@ module.exports = class extends Generator {
     const mysqlURL = await question.askConnection()
     this.connection = new Connection(mysqlURL)
     this.connection.createConnection()
-    // this.connection.queryTables()
-    // const tables = await question.askTables([])
+    const tables = await this.connection.showTables()
+    if (0 === tables.length) {
+      console.warn('Table list is empty. Please create table before generate!')
+      process.exit(1)
+    }
+    const answerTables = await question.askTables(tables)
+    console.log(answerTables)
     // this.connection.close()
   }
 

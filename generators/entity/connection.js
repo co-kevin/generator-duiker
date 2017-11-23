@@ -52,6 +52,21 @@ module.exports = class {
     return new Promise((resolve, reject) => {
       this.connection.query(`show tables`, (error, results, fields) => {
         if (error) return reject(error)
+        const fieldName = fields[0].name
+        const tables = new Array()
+        for (const row of results) {
+          const table = row[fieldName]
+          if (!table) {
+            console.warn(`Wrong fieldName: ${fieldName}`)
+            break
+          }
+          // Ignore liquibase changelog table DATABASECHANGELOG, DATABASECHANGELOGLOCK
+          if (table === 'DATABASECHANGELOG' || table === 'DATABASECHANGELOGLOCK') {
+            continue
+          }
+          tables.push(table)
+        }
+        resolve(tables)
       })
     })
   }
