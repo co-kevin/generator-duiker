@@ -64,24 +64,35 @@ module.exports = class {
    */
   _mapper(columns) {
     for (let column of columns) {
-      if ('varchar' === column.DATA_TYPE || 'char' === column.DATA_TYPE) {
-        column.fieldType = 'String'
-      } else if ('timestamp' === column.DATA_TYPE || 'date' === column.DATA_TYPE) {
-        column.fieldType = 'Date'
-      } else if ('int' === column.DATA_TYPE ||
-        'smallint' === column.DATA_TYPE ||
-        'tinyint' === column.DATA_TYPE) {
-        column.DATA_TYPE = 'Integer' // 将整数类型的 DATA_TYPE 换成 Integer，在写 Mapper.xml 的时候会用到
-        column.fieldType = 'Integer'
-      } else if ('double' === column.DATA_TYPE || 'decimal' === column.DATA_TYPE) {
-        column.fieldType = 'Double'
-      } else if ('bit' === column.DATA_TYPE) {
-        column.fieldType = 'Boolean'
-      } else {
-        console.warn(`We don't catch this data type: ${column.DATA_TYPE}`)
+      switch (column.DATA_TYPE) {
+        case 'varchar':
+        case 'char':
+        case 'longtext':
+          column.fieldType = 'String'
+          break
+        case 'timestamp':
+        case 'date':
+          column.fieldType = 'Date'
+          break
+        case 'int':
+        case 'smallint':
+        case 'tinyint':
+          // 将整数类型的 DATA_TYPE 换成 Integer，在写 Mapper.xml 的时候会用到
+          column.DATA_TYPE = 'Integer'
+          column.fieldType = 'Integer'
+          break
+        case 'double':
+        case 'decimal':
+          column.fieldType = 'Double'
+          break
+        case 'bit':
+          column.fieldType = 'Boolean'
+          break
+        default:
+          console.warn(`We don't catch this data type: ${column.DATA_TYPE}`)
       }
       column.fieldName = _string.camelCase(column.COLUMN_NAME)
-      column.COLUMN_COMMENT = _utils._trimAll(column.COLUMN_COMMENT)
+      column.COLUMN_COMMENT = _utils.trimAll(column.COLUMN_COMMENT)
     }
     return columns
   }
@@ -92,10 +103,10 @@ module.exports = class {
    */
   _data() {
     return {
-      nameCases,
-      groupCases,
-      tableName,
-      tableComment,
+      nameCases: this.nameCase,
+      groupCases: this.groupCase,
+      tableName: this.tableName,
+      tableComment: this.tableComment,
       entityClass: _string.upperFirst(_string.camelCase(this.tableName)),
       entityClassCamelCase: _string.camelCase(this.tableName),
       columns: this._mapper(this.columns)
