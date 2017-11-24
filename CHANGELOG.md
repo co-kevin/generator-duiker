@@ -4,12 +4,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
-## unreleased
-## [1.0.2] - 2017-11-22
+## [2.0.0-rc1]
 ### Added
 
 - 添加 Mybatis Plus 配置到 application.yml
-- 添加 mysql, liquibase 版本号到 build.gradle 
+- 添加 mysql, liquibase 版本号到 build.gradle
+- 支持同时从多张表生成
+
+### Changed
+
+- 优化用户界面体验，减少输入
+- 数据库中 decimal 类型映射到 BigDecimal 而不是 Double
 
 ## [1.0.1] - 2017-11-21
 ### Fixed
