@@ -2,7 +2,8 @@ const _string = require('lodash/string')
 
 module.exports = {
   nameCase,
-  groupCase
+  groupCase,
+  trimAll
 }
 
 /**
@@ -35,4 +36,16 @@ function groupCase(group) {
     // 字母小写，单词间 / 分割
     splitBySlash: group.split('\.').join('/'),
   }
+}
+
+/**
+ * 删除字段注释中的所有空白字符, 防止生成 Java 代码时编译错误
+ *
+ * @param {*string} str
+ */
+function trimAll(str) {
+  if (str) {
+    return str.replace(/\s/g, '')
+  }
+  return str
 }
