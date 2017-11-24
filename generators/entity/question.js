@@ -16,6 +16,32 @@ module.exports = class {
   }
 
   /**
+   * Ask the project info.
+   * Project group, sample: com.zdan91
+   * Project name, sample: ocr bill
+   */
+  askProjectInfo() {
+    const questions = [{
+      type: 'input',
+      name: 'group',
+      message: 'Your project group',
+      default: this.appgroup, // Default to current folder name
+      store: true
+    }, {
+      type: 'input',
+      name: 'name',
+      message: 'Your project name',
+      default: this.appname, // Default to current folder name
+      store: true
+    }]
+    return new Promise((resolve, reject) => {
+      this.generator.prompt(questions).then((answers) => {
+        resolve(answers)
+      })
+    })
+  }
+
+  /**
    * Ask the user MySQL connection URL.
    * URL format: mysql://user:pass@host/db?debug=true&charset=BIG5_CHINESE_CI&timezone=-0700
    */
