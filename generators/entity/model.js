@@ -63,7 +63,12 @@ module.exports = class {
    * @param {*Array} columns
    */
   _mapper(columns) {
+    const imports = {}
     for (let column of columns) {
+      if (!imports.isNullable && 'NO' === column.IS_NULLABLE) {
+        imports.isNullable = true
+      }
+
       switch (column.DATA_TYPE) {
         case 'varchar':
         case 'char':
@@ -73,6 +78,7 @@ module.exports = class {
         case 'timestamp':
         case 'date':
           column.fieldType = 'Date'
+          imports.Date = true
           break
         case 'int':
         case 'smallint':
@@ -82,8 +88,11 @@ module.exports = class {
           column.fieldType = 'Integer'
           break
         case 'double':
-        case 'decimal':
           column.fieldType = 'Double'
+          break
+        case 'decimal':
+          column.fieldType = 'BigDecimal'
+          imports.BigDecimal = true
           break
         case 'bit':
           column.fieldType = 'Boolean'
@@ -94,7 +103,10 @@ module.exports = class {
       column.fieldName = _string.camelCase(column.COLUMN_NAME)
       column.COLUMN_COMMENT = _utils.trimAll(column.COLUMN_COMMENT)
     }
-    return columns
+    return {
+      columns,
+      imports
+    }
   }
 
   /**
@@ -109,7 +121,7 @@ module.exports = class {
       tableComment: this.tableComment,
       entityClass: _string.upperFirst(_string.camelCase(this.tableName)),
       entityClassCamelCase: _string.camelCase(this.tableName),
-      columns: this._mapper(this.columns)
+      ...this._mapper(this.columns)
     }
   }
 }
