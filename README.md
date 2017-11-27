@@ -1,6 +1,6 @@
-# duiker (小羚羊)
+# generator-duiker (小羚羊)
 
-Yeoman 工程脚手架，可以生成基础微服务项目，CRUD 代码
+Yeoman 工程脚手架，可以生成基础微服务项目，CRUD 代码。本项目使用 NodeJS 开发，使用时务必安装 [NodeJS](https://nodejs.org)
 
 ## Yeoman http://yeoman.io
 
@@ -12,6 +12,17 @@ One-line install using npm: `npm install -g yo`
 
 ## Usage
 
+使用之前先检查各依赖是否安装完整
+
+```
+$ node -v && npm -v && yo --version
+v8.9.1
+5.5.1
+2.0.0
+```
+
+开始
+
 ```
 $ git clone http://git.91zdan.com/91zdan-back-end/generator-duiker.git && cd generator-duiker
 $ npm link
@@ -22,31 +33,24 @@ $ npm link
 生成基础微服务项目
 
 ```
-$ mkdir mirco-service
+$ mkdir mirco-service && cd mirco-service
 $ yo duiker
-? Your project group
-? Your project name
-? Your project port
 ```
 
 ### Entity
 
 只需要在数据库创建好表结构，即可生成一整套的增删改查代码
 
+`MySQL URL Format: mysql://user:pass@host/db?debug=true&charset=BIG5_CHINESE_CI&timezone=-0700`
+
 ```
 $ cd $PROJECT_HOME
 $ yo duiker:entity
-? Your project group
-? Your project name
-? Your mysql host
-? Your mysql user
-? Your mysql password
-? Your database
-? Your table name
-create _Model.java
-create _ModelMapper.java
-create _ModelService.java
-create _ModelResource.java
-create _ModelMapper.xml
-create _changelog.sql
+```
+
+## Upgrade
+
+```
+$ cd generator-duiker
+$ git pull
 ```
