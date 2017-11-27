@@ -1,5 +1,6 @@
 const Generator = require('yeoman-generator')
 const _string = require('lodash/string')
+const _utils = require('../utils')
 
 module.exports = class extends Generator {
   // The name `constructor` is important here
@@ -34,37 +35,13 @@ module.exports = class extends Generator {
 
   // callback when answered
   _run(answers) {
-    answers.nameCases = this._nameCase(answers.name)
-    answers.groupCases = this._groupCase(answers.group)
+    answers.nameCases = _utils.nameCase(answers.name)
+    answers.groupCases = _utils.groupCase(answers.group)
 
     this._copyStaticFiles()
     this._copyTplJava(answers)
     this._copyTplYml(answers)
     this._copyOther(answers)
-  }
-
-  // 基于用户输入的 name 变种: ocr bill
-  _nameCase(name) {
-    const kebab = _string.kebabCase(name)
-    return {
-      // 首字母大写驼峰写法
-      hump: _string.upperFirst(_string.camelCase(name)),
-      // 字母小写，单词间横线分割
-      kebab,
-      // 字母小写，单词间 . 分割
-      splitByDot: kebab.split('-').join('.'),
-      // 字母小写，单词间 / 分割
-      splitBySlash: kebab.split('-').join('/'),
-    }
-  }
-
-  // 基于用户输入的 group 变种: com.zdan91
-  _groupCase(group) {
-    return {
-      splitByDot: group,
-      // 字母小写，单词间 / 分割
-      splitBySlash: group.split('\.').join('/'),
-    }
   }
 
   // 输出所有 java 格式的模板文件
