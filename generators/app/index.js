@@ -100,6 +100,7 @@ module.exports = class extends Generator {
     const baseDestPath = `src/main/java/${data.groupCases.splitBySlash}/${data.nameCases.splitBySlash}`
     this.fs.copyTpl(this.templatePath(`${baseTplPath}/exception/_package-info.java`), this.destinationPath(`${baseDestPath}/exception/package-info.java`), data)
     this.fs.copyTpl(this.templatePath(`${baseTplPath}/model/_package-info.java`), this.destinationPath(`${baseDestPath}/model/package-info.java`), data)
+    this.fs.copyTpl(this.templatePath(`${baseTplPath}/enums/_package-info.java`), this.destinationPath(`${baseDestPath}/enums/package-info.java`), data)
     this.fs.copyTpl(this.templatePath(`${baseTplPath}/service/_package-info.java`), this.destinationPath(`${baseDestPath}/service/package-info.java`), data)
     this.fs.copyTpl(this.templatePath(`${baseTplPath}/web/rest/_package-info.java`), this.destinationPath(`${baseDestPath}/web/rest/package-info.java`), data)
   }
