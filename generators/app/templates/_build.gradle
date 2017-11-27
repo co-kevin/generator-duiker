@@ -36,10 +36,6 @@ ext {
     springfox_version = '2.7.0'
 }
 
-configurations {
-    mybatisGenerator
-}
-
 dependencies {
     compile('org.liquibase:liquibase-core:3.5.3')
     compile('com.baomidou:mybatisplus-spring-boot-starter:1.0.5')
