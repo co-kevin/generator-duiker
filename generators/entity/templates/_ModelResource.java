@@ -3,10 +3,10 @@ package <%= groupCases.splitByDot %>.<%= nameCases.splitByDot %>.web.rest;
 import com.baomidou.mybatisplus.plugins.Page;
 import <%= groupCases.splitByDot %>.<%= nameCases.splitByDot %>.model.<%= entityClass %>;
 import <%= groupCases.splitByDot %>.<%= nameCases.splitByDot %>.service.<%= entityClass %>Service;
-import <%= groupCases.splitByDot %>.<%= nameCases.splitByDot %>.web.rest.vo.ResponseVO;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -32,10 +32,10 @@ public class <%= entityClass %>Resource {
      * @return the ResponseEntity with status 200 (OK) and with body the new <%= entityClassCamelCase %>
      */
     @PostMapping("/<%= tableName %>")
-    public ResponseVO create<%= entityClass %>(@Valid @RequestBody <%= entityClass %> <%= entityClassCamelCase %>) {
+    public ResponseEntity<<%= entityClass %>> create<%= entityClass %>(@Valid @RequestBody <%= entityClass %> <%= entityClassCamelCase %>) {
         log.debug("REST request to save <%= entityClass %> : {}", <%= entityClassCamelCase %>);
         service.insert(<%= entityClassCamelCase %>);
-        return ResponseVO.response().build();
+        return ResponseEntity.ok(<%= entityClassCamelCase %>);
     }
 
     /**
@@ -45,10 +45,10 @@ public class <%= entityClass %>Resource {
      * @return the ResponseEntity with status 200 (OK) and with body the updated <%= tableName %>
      */
     @PutMapping("/<%= tableName %>")
-    public ResponseVO update<%= entityClass %>(@Valid @RequestBody <%= entityClass %> <%= entityClassCamelCase %>) {
+    public ResponseEntity<<%= entityClass %>> update<%= entityClass %>(@Valid @RequestBody <%= entityClass %> <%= entityClassCamelCase %>) {
         log.debug("REST request to update <%= entityClass %> : {}", <%= entityClassCamelCase %>);
         service.updateById(<%= entityClassCamelCase %>);
-        return ResponseVO.response().build();
+        return ResponseEntity.ok(<%= entityClassCamelCase %>);
     }
 
     /**
@@ -57,37 +57,37 @@ public class <%= entityClass %>Resource {
      * @param pageable the pagination information
      * @return the ResponseEntity with status 200 (OK) and with body all <%= tableName %>
      */
+    @SuppressWarnings("unchecked")
     @GetMapping("/<%= tableName %>")
     @ApiOperation(value = "get all <%= tableName %>.", response = Page.class)
-    public ResponseVO getAll<%= entityClass %>(@ApiParam Page pageable) {
+    public ResponseEntity<Page<Person>> getAll<%= entityClass %>(@ApiParam Page pageable) {
         final Page<<%= entityClass %>> page = service.selectPage(pageable);
-        return ResponseVO.response().setData(page).build();
+        return ResponseEntity.ok(page);
     }
 
     /**
-     * GET /<%= tableName %>/:id : get the "id" <%= tableName %>
+     * GET /<%= tableName %>/:detail : get the "id" <%= tableName %>
      *
      * @param id the id of the <%= tableName %> to find
      * @return
      */
-    @GetMapping("/<%= tableName %>/{id}")
+    @GetMapping("/<%= tableName %>/detail")
     @ApiOperation(value = "get the \"id\" <%= tableName %>", response = <%= entityClass %>.class)
-    public ResponseVO get<%= entityClass %>(@PathVariable Integer id) {
+    public ResponseEntity<<%= entityClass %>> get<%= entityClass %>(@RequestParam Integer id) {
         log.debug("REST request to get <%= entityClass %> : {}", id);
         <%= entityClass %> entity = service.selectById(id);
-        return ResponseVO.response().wrapOrNotFound(entity).build();
+        return ResponseEntity.ok(entity);
     }
 
     /**
-     * DELETE /<%= tableName %>/:id : delete the "id" <%= tableName %>.
+     * DELETE /<%= tableName %> : delete the "id" <%= tableName %>.
      *
      * @param id the id of the <%= tableName %> to delete
      * @return
      */
-    @DeleteMapping("/<%= tableName %>/{id}")
-    public ResponseVO delete<%= entityClass %>(@PathVariable Integer id) {
+    @DeleteMapping("/<%= tableName %>")
+    public void delete<%= entityClass %>(@RequestParam Integer id) {
         log.debug("REST request to delete <%= entityClass %> : {}", id);
         service.deleteById(id);
-        return ResponseVO.response().build();
     }
 }
