@@ -90,6 +90,7 @@ module.exports = class {
     this.generator.fs.copyTpl(this.generator.templatePath(`${baseTplPath}/enums/_package-info.java`), this.generator.destinationPath(`${baseDestPath}/enums/package-info.java`), data)
     this.generator.fs.copyTpl(this.generator.templatePath(`${baseTplPath}/service/_package-info.java`), this.generator.destinationPath(`${baseDestPath}/service/package-info.java`), data)
     this.generator.fs.copyTpl(this.generator.templatePath(`${baseTplPath}/web/rest/_package-info.java`), this.generator.destinationPath(`${baseDestPath}/web/rest/package-info.java`), data)
+    this.generator.fs.copyTpl(this.generator.templatePath(`${baseTplPath}/web/rest/vo/_package-info.java`), this.generator.destinationPath(`${baseDestPath}/web/rest/vo/package-info.java`), data)
 
     this.generator.fs.copyTpl(this.generator.templatePath('_build.gradle'), this.generator.destinationPath(`build.gradle`), data)
     this.generator.fs.copyTpl(this.generator.templatePath(`_README.md`), this.generator.destinationPath(`README.md`), data)
