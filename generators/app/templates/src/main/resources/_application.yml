@@ -8,7 +8,7 @@ spring:
     profiles:
         active: dev
     application:
-        name: service-<%= nameCases.kebab %>
+        name: <%= nameCases.kebab %>
 
 eureka:
     instance:
@@ -23,7 +23,7 @@ info:
     project:
         version: 0.0.1-SNAPSHOT
         title: <%= name %>
-        description: 
+        description:
 
 mybatis-plus:
     mapper-locations: classpath:/mapper/*Mapper.xml
