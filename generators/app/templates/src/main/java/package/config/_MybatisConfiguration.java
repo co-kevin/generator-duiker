@@ -1,7 +1,6 @@
 package <%= groupCases.splitByDot %>.<%= nameCases.splitByDot %>.config;
 
 import com.baomidou.mybatisplus.plugins.PaginationInterceptor;
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -11,7 +10,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @EnableTransactionManagement(proxyTargetClass = true)
-@MapperScan("<%= groupCases.splitByDot %>.<%= nameCases.splitByDot %>.mapper*")
 public class MybatisConfiguration {
     /**
      * 分页插件
