@@ -57,14 +57,6 @@ module.exports = class {
       , this.generator.destinationPath(`${baseDestPath}/${data.nameCases.hump}Application.java`), data)
     this.generator.fs.copyTpl(this.generator.templatePath(`${baseTplPath}/config/_Constants.java`)
       , this.generator.destinationPath(`${baseDestPath}/config/Constants.java`), data)
-    this.generator.fs.copyTpl(this.generator.templatePath(`${baseTplPath}/config/_LiquibaseConfiguration.java`)
-      , this.generator.destinationPath(`${baseDestPath}/config/LiquibaseConfiguration.java`), data)
-    this.generator.fs.copyTpl(this.generator.templatePath(`${baseTplPath}/config/_MybatisConfiguration.java`)
-      , this.generator.destinationPath(`${baseDestPath}/config/MybatisConfiguration.java`), data)
-    this.generator.fs.copyTpl(this.generator.templatePath(`${baseTplPath}/config/_SwaggerConfiguration.java`)
-      , this.generator.destinationPath(`${baseDestPath}/config/SwaggerConfiguration.java`), data)
-    this.generator.fs.copyTpl(this.generator.templatePath(`${baseTplPath}/web/rest/vo/_ResponseVO.java`)
-      , this.generator.destinationPath(`${baseDestPath}/web/rest/vo/ResponseVO.java`), data)
   }
 
   /**
