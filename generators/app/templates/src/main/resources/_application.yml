@@ -54,6 +54,9 @@ mybatis-plus:
         map-underscore-to-camel-case: true
         cache-enabled: false
 
+duiker:
+    swagger.scan-base-package: <%= groupCases.splitByDot %>.<%= nameCases.splitByDot %>.web.rest
+
 # ===================================================================
 # Application specific properties
 # Add your own application properties here, see the ApplicationProperties class
