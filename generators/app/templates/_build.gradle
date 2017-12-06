@@ -47,13 +47,12 @@ repositories {
 
 ext {
     springCloudVersion = 'Edgware.RELEASE'
-    springfox_version = '2.7.0'
+    springfoxVersion = '2.7.0'
+    duikerVersion = '0.0.4-dev'
 }
 
 dependencies {
-    compile('org.liquibase:liquibase-core:3.5.3')
-    compile('com.baomidou:mybatisplus-spring-boot-starter:1.0.5')
-    compile('com.baomidou:mybatis-plus:2.1.4')
+    compile("com.zdan91:duiker:${duikerVersion}")
     compile('javax.persistence:javax.persistence-api:2.2')
     compile('mysql:mysql-connector-java:5.1.44')
 
@@ -61,12 +60,12 @@ dependencies {
     compile("org.springframework.cloud:spring-cloud-starter-eureka-server"){
         exclude group:'javax.servlet'
     }
-    compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlinVersion}")
-    compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
     compile("org.projectlombok:lombok:1.16.18")
     compile("com.xiaoleilu:hutool-all:3.2.0")
-    compile("io.springfox:springfox-swagger2:${springfox_version}")
-    compile("io.springfox:springfox-swagger-ui:${springfox_version}")
+    compile("org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlinVersion}")
+    compile("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
+    compile("io.springfox:springfox-swagger2:${springfoxVersion}")
+    compile("io.springfox:springfox-swagger-ui:${springfoxVersion}")
     testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
