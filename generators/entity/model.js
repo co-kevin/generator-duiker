@@ -92,6 +92,8 @@ module.exports = class {
       switch (column.DATA_TYPE) {
         case 'varchar':
         case 'char':
+        case 'text':
+        case 'mediumtext':
         case 'longtext':
           column.fieldType = 'String'
           break
