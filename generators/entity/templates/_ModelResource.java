@@ -60,13 +60,13 @@ public class <%= entityClass %>Resource {
     @SuppressWarnings("unchecked")
     @GetMapping("/<%= tableName %>")
     @ApiOperation(value = "get all <%= tableName %>.", response = Page.class)
-    public ResponseEntity<Page<Person>> getAll<%= entityClass %>(@ApiParam Page pageable) {
+    public ResponseEntity<Page<<%= entityClass %>>> getAll<%= entityClass %>(@ApiParam Page pageable) {
         final Page<<%= entityClass %>> page = service.selectPage(pageable);
         return ResponseEntity.ok(page);
     }
 
     /**
-     * GET /<%= tableName %>/:info : get the "id" <%= tableName %>
+     * GET /<%= tableName %>/info : get the "id" <%= tableName %>
      *
      * @param id the id of the <%= tableName %> to find
      * @return
