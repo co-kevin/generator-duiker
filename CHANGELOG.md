@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.0.0] - 2017-12-7
+### Added
+
+- 添加核心代码库 duiker
+- 添加 Kotlin 支持
+
+### Changed
+
+- yo duiker:entity 适应新的 Http 规范
+
 ## [2.0.0-rc1]
 ### Added
 
