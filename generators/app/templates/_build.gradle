@@ -42,7 +42,13 @@ springBoot {
 }
 
 repositories {
-	mavenCentral()
+	maven {
+        url 'http://nexus.91zdan.com/nexus/content/groups/public/'
+    }
+    mavenCentral()
+    jcenter()
+    maven { url "http://repo.spring.io/plugins-release" }
+    maven { url "https://plugins.gradle.org/m2/" }
 }
 
 ext {
