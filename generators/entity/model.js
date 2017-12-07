@@ -119,6 +119,8 @@ module.exports = class {
           break
         case 'enum':
           column.fieldType = _string.upperFirst(_string.camelCase(column.COLUMN_NAME))
+          // 枚举类型 jdbcType 写成 VARCHAR
+          column.DATA_TYPE = 'VARCHAR'
           enums.push({
             enumClass: column.fieldType,
             enums: this._cleanEnums(column.COLUMN_TYPE)
