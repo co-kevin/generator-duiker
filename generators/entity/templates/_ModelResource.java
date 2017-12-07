@@ -66,12 +66,12 @@ public class <%= entityClass %>Resource {
     }
 
     /**
-     * GET /<%= tableName %>/:detail : get the "id" <%= tableName %>
+     * GET /<%= tableName %>/:info : get the "id" <%= tableName %>
      *
      * @param id the id of the <%= tableName %> to find
      * @return
      */
-    @GetMapping("/<%= tableName %>/detail")
+    @GetMapping("/<%= tableName %>/info")
     @ApiOperation(value = "get the \"id\" <%= tableName %>", response = <%= entityClass %>.class)
     public ResponseEntity<<%= entityClass %>> get<%= entityClass %>(@RequestParam Integer id) {
         log.debug("REST request to get <%= entityClass %> : {}", id);
