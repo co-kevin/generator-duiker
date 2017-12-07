@@ -1,5 +1,8 @@
 package <%= groupCases.splitByDot %>.<%= nameCases.splitByDot %>.model;
 
+<%_ for (var e of enums) { _%>
+import <%= groupCases.splitByDot %>.<%= nameCases.splitByDot %>.enums.<%= e.enumClass %>;
+<%_ } _%>
 import io.swagger.annotations.ApiModelProperty;
 <%_ if (imports.isNullable) { _%>
 import io.swagger.annotations.ApiParam;
@@ -42,5 +45,6 @@ public class <%= entityClass %> {
     @Column(name = "<%= column.COLUMN_NAME %>")
     private <%= column.fieldType %> <%= column.fieldName%>;
         <%_ } _%>
+
     <%_ } _%>
 }

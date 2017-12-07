@@ -41,6 +41,7 @@ module.exports = class {
     this.generator.fs.copyTpl(this.generator.templatePath(`_ModelResource.java`), this.generator.destinationPath(`${baseDestPath}/web/rest/${data.entityClass}Resource.java`), data)
     this.generator.fs.copyTpl(this.generator.templatePath(`_ModelMapper.xml`), this.generator.destinationPath(`src/main/resources/mapper/${data.entityClass}Mapper.xml`), data)
     this._createLiquibaseChangelog()
+    this._createEnums(data.enums, data.groupCases, data.nameCases)
   }
 
   /**
@@ -58,12 +59,31 @@ module.exports = class {
   }
 
   /**
+   * Create enum files. column type is enum.
+   *
+   * @param {*Array} data
+   * @param {*Object} groupCases
+   * @param {*Object} nameCases
+   */
+  _createEnums(data, groupCases, nameCases) {
+    const baseDestPath = `src/main/java/${groupCases.splitBySlash}/${nameCases.splitBySlash}`
+    for (let d of data) {
+      this.generator.fs.copyTpl(this.generator.templatePath(`_Enum.java`), this.generator.destinationPath(`${baseDestPath}/enums/${d.enumClass}.java`), {
+        ...d,
+        groupCases,
+        nameCases
+      })
+    }
+  }
+
+  /**
    * Handle database column type to java entity type mapper.
    *
    * @param {*Array} columns
    */
   _mapper(columns) {
     const imports = {}
+    const enums = []
     for (let column of columns) {
       if (!imports.isNullable && 'NO' === column.IS_NULLABLE) {
         imports.isNullable = true
@@ -97,6 +117,13 @@ module.exports = class {
         case 'bit':
           column.fieldType = 'Boolean'
           break
+        case 'enum':
+          column.fieldType = _string.upperFirst(_string.camelCase(column.COLUMN_NAME))
+          enums.push({
+            enumClass: column.fieldType,
+            enums: this._cleanEnums(column.COLUMN_TYPE)
+          })
+          break
         default:
           console.warn(`We don't catch this data type: ${column.DATA_TYPE}`)
       }
@@ -105,8 +132,26 @@ module.exports = class {
     }
     return {
       columns,
-      imports
+      imports,
+      enums
     }
+  }
+
+  /**
+   * Clean column type. original: enum('iOS','Android','WEB')
+   * output [ 'iOS', 'Android', 'WEB' ]
+   */
+  _cleanEnums(columnType) {
+    if (!columnType) {
+      return
+    }
+    // clean enum(
+    var str = columnType.replace('enum(', '')
+    // clean )
+    str = str.replace(')', '')
+    // clean all '
+    str = str.replace(new RegExp('\'', 'gm'), '')
+    return str.split(',')
   }
 
   /**
