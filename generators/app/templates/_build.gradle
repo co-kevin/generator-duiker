@@ -54,7 +54,7 @@ repositories {
 ext {
     springCloudVersion = 'Edgware.RELEASE'
     springfoxVersion = '2.7.0'
-    duikerVersion = '0.0.4-dev'
+    duikerVersion = '0.0.5-dev'
 }
 
 dependencies {
