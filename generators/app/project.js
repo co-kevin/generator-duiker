@@ -88,6 +88,7 @@ module.exports = class {
     this.generator.fs.copyTpl(this.generator.templatePath(`${baseTplPath}/exception/_package-info.java`), this.generator.destinationPath(`${baseDestPath}/exception/package-info.java`), data)
     this.generator.fs.copyTpl(this.generator.templatePath(`${baseTplPath}/model/_package-info.java`), this.generator.destinationPath(`${baseDestPath}/model/package-info.java`), data)
     this.generator.fs.copyTpl(this.generator.templatePath(`${baseTplPath}/enums/_package-info.java`), this.generator.destinationPath(`${baseDestPath}/enums/package-info.java`), data)
+    this.generator.fs.copyTpl(this.generator.templatePath(`${baseTplPath}/mapper/_package-info.java`), this.generator.destinationPath(`${baseDestPath}/mapper/package-info.java`), data)
     this.generator.fs.copyTpl(this.generator.templatePath(`${baseTplPath}/service/_package-info.java`), this.generator.destinationPath(`${baseDestPath}/service/package-info.java`), data)
     this.generator.fs.copyTpl(this.generator.templatePath(`${baseTplPath}/web/rest/_package-info.java`), this.generator.destinationPath(`${baseDestPath}/web/rest/package-info.java`), data)
     this.generator.fs.copyTpl(this.generator.templatePath(`${baseTplPath}/web/rest/vo/_package-info.java`), this.generator.destinationPath(`${baseDestPath}/web/rest/vo/package-info.java`), data)
