@@ -61,7 +61,7 @@ module.exports = class {
             break
           }
           // Ignore liquibase changelog table DATABASECHANGELOG, DATABASECHANGELOGLOCK
-          if (table === 'DATABASECHANGELOG' || table === 'DATABASECHANGELOGLOCK') {
+          if (table.toUpperCase() === 'DATABASECHANGELOG' || table.toUpperCase() === 'DATABASECHANGELOGLOCK') {
             continue
           }
           tables.push(table)
