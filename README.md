@@ -24,7 +24,7 @@ v8.9.1
 开始
 
 ```
-$ git clone http://git.91zdan.com/91zdan-back-end/generator-duiker.git && cd generator-duiker
+$ git clone http://git.91zdan.com/duiker/generator-duiker.git && cd generator-duiker
 $ npm link
 ```
 
