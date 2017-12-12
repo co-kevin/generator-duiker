@@ -2,7 +2,7 @@
 
 `Mirco Service`
 
-This application was generated using yeoman generator.
+This application was generated using Duiker.
 
 ## Development
 
