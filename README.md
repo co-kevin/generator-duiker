@@ -41,7 +41,7 @@ $ yo duiker
 
 只需要在数据库创建好表结构，即可生成一整套的增删改查代码
 
-`MySQL URL Format: mysql://user:pass@host/db?debug=true&charset=utf8`
+`MySQL URL Format: mysql://user:pass@host/db?charset=utf8`
 
 ```
 $ cd $PROJECT_HOME
