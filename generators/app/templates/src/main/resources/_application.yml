@@ -13,7 +13,6 @@ spring:
 eureka:
     instance:
         preferIpAddress: true
-        instance-id: ${spring.cloud.client.ipAddress}:${server.port}
 
 security:
     basic:
