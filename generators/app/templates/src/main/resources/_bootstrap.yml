@@ -1,0 +1,39 @@
+eureka:
+    instance:
+        # Flag to say that, when guessing a hostname, the IP address of the server should be
+        # used in prference to the hostname reported by the OS.
+        preferIpAddress: true
+    client:
+        # Indicates whether or not this instance should register its information with eureka
+        # server for discovery by others.
+        #
+        # In some cases, you do not want your instances to be discovered whereas you just
+        # want do discover other instances.
+        registerWithEureka: true
+        # Indicates whether this client should fetch eureka registry information from eureka
+        # server.
+        fetchRegistry: true
+        # Map of availability zone to list of fully qualified URLs to communicate with eureka
+        # server. Each value can be a single URL or a comma separated list of alternative
+        # locations.
+        #
+        # Typically the eureka server URLs carry protocol,host,port,context and version
+        # information if any. Example:
+        # http://ec2-256-156-243-129.compute-1.amazonaws.com:7001/eureka/
+        #
+        # The changes are effective at runtime at the next service url refresh cycle as
+        # specified by eurekaServiceUrlPollIntervalSeconds.
+        # eurekahost 支持运行时修改，读取环境变量
+        serviceUrl.defaultZone: ${eurekahost:http://localhost:8761/eureka/}
+
+spring:
+    application:
+        name: <%= nameCases.kebab %>
+    profiles:
+        # profile参数化，运行时修改
+        active: ${activeprofile:dev}
+    cloud.config:
+        discovery:
+            # Flag to indicate that config server discovery is enabled (config server URL will be
+            # looked up via discovery).
+            enabled: true
