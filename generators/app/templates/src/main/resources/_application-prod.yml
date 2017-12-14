@@ -13,18 +13,13 @@ spring:
         password:
         driver-class-name: com.mysql.jdbc.Driver
 
-eureka:
-    client:
-        serviceUrl:
-            defaultZone: http://localhost:8761/eureka/
-
 server:
     port: 8080
 
 # ===================================================================
 # Application specific properties
 # Add your own application properties here, see the ApplicationProperties class
-# to have type-safe configuration, like in the JHipsterProperties above
+# to have type-safe configuration, like in the DuikerProperties above
 # ===================================================================
 
 application:
