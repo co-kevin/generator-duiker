@@ -57,6 +57,8 @@ module.exports = class {
       , this.generator.destinationPath(`${baseDestPath}/${data.nameCases.hump}Application.java`), data)
     this.generator.fs.copyTpl(this.generator.templatePath(`${baseTplPath}/config/_Constants.java`)
       , this.generator.destinationPath(`${baseDestPath}/config/Constants.java`), data)
+    this.generator.fs.copyTpl(this.generator.templatePath(`${baseTplPath}/config/_MybatisConfiguration.java`)
+    , this.generator.destinationPath(`${baseDestPath}/config/MybatisConfiguration.java`), data)
   }
 
   /**
