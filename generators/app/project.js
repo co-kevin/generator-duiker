@@ -57,6 +57,8 @@ module.exports = class {
       , this.generator.destinationPath(`${baseDestPath}/${data.nameCases.hump}Application.java`), data)
     this.generator.fs.copyTpl(this.generator.templatePath(`${baseTplPath}/config/_Constants.java`)
       , this.generator.destinationPath(`${baseDestPath}/config/Constants.java`), data)
+    this.generator.fs.copyTpl(this.generator.templatePath(`${baseTplPath}/config/_MybatisConfiguration.java`)
+    , this.generator.destinationPath(`${baseDestPath}/config/MybatisConfiguration.java`), data)
   }
 
   /**
@@ -76,7 +78,8 @@ module.exports = class {
       'gradlew',
       'gradlew.bat',
       'CHANGELOG.md',
-      'src/main/resources/liquibase/master.xml'
+      'src/main/resources/liquibase/master.xml',
+      'src/main/resources/bootstrap-dev.yml'
     ]
 
     for (const file of files) {
@@ -104,6 +107,8 @@ module.exports = class {
    * @param {*object} data
    */
   _createConfigYML(data) {
+    this.generator.fs.copyTpl(this.generator.templatePath('src/main/resources/_bootstrap.yml')
+    , this.generator.destinationPath(`src/main/resources/bootstrap.yml`), data)
     this.generator.fs.copyTpl(this.generator.templatePath('src/main/resources/_application.yml')
       , this.generator.destinationPath(`src/main/resources/application.yml`), data)
     this.generator.fs.copyTpl(this.generator.templatePath('src/main/resources/_application-dev.yml')

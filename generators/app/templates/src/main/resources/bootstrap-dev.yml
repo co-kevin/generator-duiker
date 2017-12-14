@@ -1,0 +1,5 @@
+# Flag to say that remote configuration is enabled. Default true
+spring.cloud.config.enabled: false
+# Flag to indicate that config server discovery is enabled (config server URL will be
+# looked up via discovery).
+spring.cloud.config.discovery.enabled: false

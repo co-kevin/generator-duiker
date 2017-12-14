@@ -5,18 +5,42 @@
 # ===================================================================
 
 spring:
-    profiles:
-        active: dev
-    application:
-        name: <%= nameCases.kebab %>
+    sleuth:
+        # Percentage of requests that should be sampled. E.g. 1.0 - 100% requests should be
+        # sampled. The precision is whole-numbers only (i.e. there's no support for 0.1% of
+        # the traces).
+        sampler.percentage: 0.1
+        # Enable support for RxJava via RxJavaSchedulersHook.
+        rxjava.schedulers.hook.enabled: false
+    zipkin:
+        # URL of the zipkin query server instance. You can also provide
+        # the service id of the Zipkin server if Zipkin's registered in
+        # service discovery (e.g. http://zipkinserver/)
+        baseUrl: http://zipkin/
+        # Enabling of locating the host name via service discovery
+        locator.discovery.enabled: true
 
-eureka:
-    instance:
-        preferIpAddress: true
+# 元数据 Map
+eureka.instance.metadata-map:
+    # 管理端口号，服务治理用
+    management.port: ${management.port}
+    # 集群名称
+    cluster: ${spring.application.name}
+    # 部署颜色，蓝绿发布，读取环境变量 deploycolor
+    deploycolor: ${deploycolor:}
 
 security:
     basic:
+        # Enable basic authentication.
         enabled: false
+
+# 管理端口号，服务治理用
+management:
+    port: <%= Number(port) + 1000 %>
+    security.enabled: false
+
+# 开启 feign 熔断功能
+feign.hystrix.enabled: true
 
 info:
     project:
@@ -26,29 +50,11 @@ info:
 
 mybatis-plus:
     mapper-locations: classpath:/mapper/*Mapper.xml
-    #实体扫描，多个package用逗号或者分号分隔
-    typeAliasesPackage: <%= groupCases.splitByDot %>.<%= nameCases.splitByDot %>.model
-    # typeEnumsPackage: com.baomidou.springboot.entity.enums
     global-config:
-        #主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
+        # 主键类型  0:"数据库ID自增", 1:"用户输入ID",2:"全局唯一ID (数字类型唯一ID)", 3:"全局唯一ID UUID";
         id-type: 0
-        #字段策略 0:"忽略判断",1:"非 NULL 判断"),2:"非空判断"
-        field-strategy: 2
-        #驼峰下划线转换
+        # 驼峰下划线转换
         db-column-underline: true
-        #刷新mapper 调试神器
-        refresh-mapper: true
-        #数据库大写下划线转换
-        #capital-mode: true
-        #序列接口实现类配置
-        #key-generator: com.baomidou.springboot.xxx
-        #逻辑删除配置
-        logic-delete-value: 0
-        logic-not-delete-value: 1
-        #自定义填充策略接口实现
-        #meta-object-handler: com.baomidou.springboot.xxx
-        #自定义SQL注入器
-        #sql-injector: com.baomidou.springboot.xxx
     configuration:
         map-underscore-to-camel-case: true
         cache-enabled: false
