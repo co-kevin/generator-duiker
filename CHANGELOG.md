@@ -9,6 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 - yo duiker 添加 Zipkin，Sleuth，Config 支持
 
+### Updated
+
+- 升级 duiker 至 0.0.9-dev
+
 ### Fixed
 
 - Mybatis Plus 配置修复
