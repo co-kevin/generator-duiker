@@ -4,6 +4,15 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [2.1.0] - 2017-12-14
+### Added
+
+- yo duiker 添加 Zipkin，Sleuth，Config 支持
+
+### Fixed
+
+- Mybatis Plus 配置修复
+
 ## [2.1.0-rc1] - 2017-12-7
 ### Added
 
