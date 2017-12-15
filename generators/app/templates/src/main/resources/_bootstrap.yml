@@ -37,3 +37,5 @@ spring:
             # Flag to indicate that config server discovery is enabled (config server URL will be
             # looked up via discovery).
             enabled: true
+            # Service id to locate config server.
+            serviceId: config
