@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/).
 
 ### Updated
 
-- 升级 duiker 至 0.0.9-dev
+- 升级 duiker 至 0.0.12-dev
 
 ### Fixed
 
