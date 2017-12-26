@@ -90,11 +90,13 @@ module.exports = class {
       }
 
       switch (column.DATA_TYPE) {
-        case 'varchar':
-        case 'char':
         case 'text':
         case 'mediumtext':
         case 'longtext':
+          // 将整数类型的 DATA_TYPE 换成 varchar，在写 Mapper.xml 的时候会用到
+          column.DATA_TYPE = 'varchar'
+        case 'varchar':
+        case 'char':
           column.fieldType = 'String'
           break
         case 'timestamp':
