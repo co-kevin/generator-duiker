@@ -111,6 +111,9 @@ module.exports = class {
           column.DATA_TYPE = 'Integer'
           column.fieldType = 'Integer'
           break
+        case 'bigint':
+          column.fieldType = 'Long'
+          break
         case 'double':
           column.fieldType = 'Double'
           break
