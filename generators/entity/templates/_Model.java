@@ -20,6 +20,13 @@ import java.math.BigDecimal;
 import java.util.Date;
 <%_ } _%>
 
+<%_
+// CreateTime, UpdateTime 取消 @NotNull 注解
+function isIgnoreNotNull(columnName) {
+  return columnName === 'create_time' || columnName === 'update_time'
+}
+_%>
+
 /**
  * Entity <%= entityClass %>. <%= tableComment %>
  *
@@ -37,7 +44,7 @@ public class <%= entityClass %> {
     @Column(name = "id")
     private Integer id;
         <%_ } else { _%>
-            <%_ if ('NO' === column.IS_NULLABLE) { _%>
+            <%_ if ('NO' === column.IS_NULLABLE && !isIgnoreNotNull(column.COLUMN_NAME)) { _%>
     @NotNull
     @ApiParam(required = true)
             <%_ } _%>
