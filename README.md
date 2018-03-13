@@ -24,7 +24,7 @@ v8.9.1
 开始
 
 ```
-$ git clone http://git.91zdan.com/duiker/generator-duiker.git && cd generator-duiker
+$ git clone https://github.com/hookszhang/generator-duiker && cd generator-duiker
 $ npm link
 ```
 
@@ -54,3 +54,7 @@ $ yo duiker:entity
 $ cd generator-duiker
 $ git pull
 ```
+
+## TODO
+
+上传到 NPM 官网，使用 npm install -g 安装
