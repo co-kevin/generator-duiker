@@ -66,9 +66,9 @@ module.exports = class {
    * @param {*Object} nameCases
    */
   _createEnums(data, groupCases, nameCases) {
-    const baseDestPath = `src/main/java/${groupCases.splitBySlash}/${nameCases.splitBySlash}`
+    const baseDestPath = `src/main/kotlin/${groupCases.splitBySlash}/${nameCases.splitBySlash}`
     for (let d of data) {
-      this.generator.fs.copyTpl(this.generator.templatePath(`_Enum.java`), this.generator.destinationPath(`${baseDestPath}/enums/${d.enumClass}.java`), {
+      this.generator.fs.copyTpl(this.generator.templatePath(`_Enum.kt`), this.generator.destinationPath(`${baseDestPath}/enums/${d.enumClass}.kt`), {
         ...d,
         groupCases,
         nameCases

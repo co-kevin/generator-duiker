@@ -5,6 +5,7 @@ import <%= groupCases.splitByDot %>.<%= nameCases.splitByDot %>.model.<%= entity
 import <%= groupCases.splitByDot %>.<%= nameCases.splitByDot %>.service.<%= entityClass %>Service
 import io.swagger.annotations.ApiOperation
 import io.swagger.annotations.ApiParam
+import org.slf4j.LoggerFactory
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
@@ -17,7 +18,7 @@ import javax.validation.Valid
 @RequestMapping("/api")
 class <%= entityClass %>Resource(private val service: <%= entityClass %>Service) {
 
-    private final val log = LoggerFactory.getLogger(javaClass)
+    private val log = LoggerFactory.getLogger(javaClass)
 
     /**
      * Get /<%= tableName %> : Create a new <%= tableName %>
@@ -26,7 +27,7 @@ class <%= entityClass %>Resource(private val service: <%= entityClass %>Service)
      * @return the ResponseEntity with status 200 (OK) and with body the new <%= entityClassCamelCase %>
      */
     @PostMapping("/<%= tableName %>")
-    fun create<%= entityClass %>(@Valid @RequestBody <%= entityClassCamelCase %>: <%= entityClass %> ): ResponseEntity<<%= entityClass %>> {
+    fun create<%= entityClass %>(@Valid @RequestBody <%= entityClassCamelCase %>: <%= entityClass %>): ResponseEntity<<%= entityClass %>> {
         log.debug("REST request to save <%= entityClass %> : {}", <%= entityClassCamelCase %>)
         service.insert(<%= entityClassCamelCase %>)
         return ResponseEntity.ok(<%= entityClassCamelCase %>)
@@ -55,7 +56,7 @@ class <%= entityClass %>Resource(private val service: <%= entityClass %>Service)
     @GetMapping("/<%= tableName %>")
     @ApiOperation(value = "get all <%= tableName %>.", response = Page::class)
     fun getAll<%= entityClass %>(@ApiParam pageable: Page<<%= entityClass %>>): ResponseEntity<Page<<%= entityClass %>>> {
-        val Page<<%= entityClass %>> page = service.selectPage(pageable)
+        val page = service.selectPage(pageable)
         return ResponseEntity.ok(page)
     }
 
@@ -66,10 +67,10 @@ class <%= entityClass %>Resource(private val service: <%= entityClass %>Service)
      * @return
      */
     @GetMapping("/<%= tableName %>/info")
-    @ApiOperation(value = "get the \"id\" <%= tableName %>", response = <%= entityClass %>.class)
+    @ApiOperation(value = "get the \"id\" <%= tableName %>", response = <%= entityClass %>::class)
     fun get<%= entityClass %>(@RequestParam id: Int?): ResponseEntity<<%= entityClass %>> {
         log.debug("REST request to get <%= entityClass %> : {}", id)
-        <%= entityClass %> entity = service.selectById(id)
+        val entity = service.selectById(id)
         return ResponseEntity.ok(entity)
     }
 
