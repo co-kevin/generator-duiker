@@ -34,11 +34,11 @@ module.exports = class {
    */
   create() {
     const data = this._data()
-    const baseDestPath = `src/main/java/${data.groupCases.splitBySlash}/${data.nameCases.splitBySlash}`
-    this.generator.fs.copyTpl(this.generator.templatePath(`_Model.java`), this.generator.destinationPath(`${baseDestPath}/model/${data.entityClass}.java`), data)
-    this.generator.fs.copyTpl(this.generator.templatePath(`_ModelMapper.java`), this.generator.destinationPath(`${baseDestPath}/mapper/${data.entityClass}Mapper.java`), data)
-    this.generator.fs.copyTpl(this.generator.templatePath(`_ModelService.java`), this.generator.destinationPath(`${baseDestPath}/service/${data.entityClass}Service.java`), data)
-    this.generator.fs.copyTpl(this.generator.templatePath(`_ModelResource.java`), this.generator.destinationPath(`${baseDestPath}/web/rest/${data.entityClass}Resource.java`), data)
+    const baseDestPath = `src/main/kotlin/${data.groupCases.splitBySlash}/${data.nameCases.splitBySlash}`
+    this.generator.fs.copyTpl(this.generator.templatePath(`_Model.kt`), this.generator.destinationPath(`${baseDestPath}/model/${data.entityClass}.kt`), data)
+    this.generator.fs.copyTpl(this.generator.templatePath(`_ModelMapper.kt`), this.generator.destinationPath(`${baseDestPath}/mapper/${data.entityClass}Mapper.kt`), data)
+    this.generator.fs.copyTpl(this.generator.templatePath(`_ModelService.kt`), this.generator.destinationPath(`${baseDestPath}/service/${data.entityClass}Service.kt`), data)
+    this.generator.fs.copyTpl(this.generator.templatePath(`_ModelResource.kt`), this.generator.destinationPath(`${baseDestPath}/web/rest/${data.entityClass}Resource.kt`), data)
     this.generator.fs.copyTpl(this.generator.templatePath(`_ModelMapper.xml`), this.generator.destinationPath(`src/main/resources/mapper/${data.entityClass}Mapper.xml`), data)
     this._createLiquibaseChangelog()
     this._createEnums(data.enums, data.groupCases, data.nameCases)
@@ -109,7 +109,7 @@ module.exports = class {
         case 'tinyint':
           // 将整数类型的 DATA_TYPE 换成 Integer，在写 Mapper.xml 的时候会用到
           column.DATA_TYPE = 'Integer'
-          column.fieldType = 'Integer'
+          column.fieldType = 'Int'
           break
         case 'bigint':
           column.fieldType = 'Long'
