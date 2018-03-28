@@ -9,6 +9,6 @@ import org.springframework.stereotype.Service
 @Service
 class <%= entityClass %>Service : ServiceImpl<<%= entityClass %>Mapper, <%= entityClass %>>() {
 
-  private val log = LoggerFactory.getLogger(javaClass)
+    private val log = LoggerFactory.getLogger(javaClass)
 
 }
