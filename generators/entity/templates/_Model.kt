@@ -44,17 +44,17 @@ data class <%= entityClass %> (
     <%_ for (var i = 0; i < columns.length; i++) { _%>
         <%_ const column = columns[i] _%>
         <%_ if ('id' === column.COLUMN_NAME) { _%>
-        @Id
-        @GeneratedValue(strategy = GenerationType.IDENTITY)
-        @Column(name = "id")
+        @field:Id
+        @field:GeneratedValue(strategy = GenerationType.IDENTITY)
+        @field:Column(name = "id")
         var id: Int? = null,
         <%_ } else { _%>
             <%_ if ('NO' === column.IS_NULLABLE && !isIgnoreNotNull(column.COLUMN_NAME)) { _%>
-        @NotNull
-        @ApiParam(required = true)
+        @field:NotNull
+        @field:ApiParam(required = true)
             <%_ } _%>
-        @ApiModelProperty(value = "<%- column.COLUMN_COMMENT %>")
-        @Column(name = "<%= column.COLUMN_NAME %>")
+        @field:ApiModelProperty(value = "<%- column.COLUMN_COMMENT %>")
+        @field:Column(name = "<%= column.COLUMN_NAME %>")
         var <%= column.fieldName%>: <%= column.fieldType %>? = null<%= comma(i, columns.length) _%>
 
         <%_ } _%>
