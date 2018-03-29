@@ -24,8 +24,7 @@ v8.9.1
 开始
 
 ```
-$ git clone https://github.com/hookszhang/generator-duiker && cd generator-duiker
-$ npm link
+$ npm install -g generator-duiker
 ```
 
 ### Mirco Service
@@ -54,7 +53,3 @@ $ yo duiker:entity
 $ cd generator-duiker
 $ git pull
 ```
-
-## TODO
-
-上传到 NPM 官网，使用 npm install -g 安装
