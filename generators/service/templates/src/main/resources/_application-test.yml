@@ -1,3 +1,9 @@
+# ===================================================================
+# Standard Spring Boot properties.
+# Full reference is available at:
+# http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
+# ===================================================================
+
 spring:
     profiles:
         include: swagger
@@ -20,6 +26,9 @@ spring:
         testOnReturn: false
         poolPreparedStatements: true
         maxOpenPreparedStatements: 20
+
+logging:
+    config: classpath:logback-test.xml
 
 # ===================================================================
 # Application specific properties

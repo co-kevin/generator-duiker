@@ -114,9 +114,13 @@ module.exports = class {
       , this.generator.destinationPath(`src/main/resources/application.yml`), data)
     this.generator.fs.copyTpl(this.generator.templatePath('src/main/resources/_application-dev.yml')
       , this.generator.destinationPath(`src/main/resources/application-dev.yml`), data)
-    // this.generator.fs.copyTpl(this.generator.templatePath('src/main/resources/_application-test.yml')
-      // , this.generator.destinationPath(`src/main/resources/application-test.yml`), data)
-    // this.generator.fs.copyTpl(this.generator.templatePath('src/main/resources/_application-prod.yml')
-      // , this.generator.destinationPath(`src/main/resources/application-prod.yml`), data)
+    this.generator.fs.copyTpl(this.generator.templatePath('src/main/resources/_application-test.yml')
+      , this.generator.destinationPath(`src/main/resources/application-test.yml`), data)
+    this.generator.fs.copyTpl(this.generator.templatePath('src/main/resources/_application-prod.yml')
+      , this.generator.destinationPath(`src/main/resources/application-prod.yml`), data)
+    this.generator.fs.copyTpl(this.generator.templatePath('src/main/resources/_logback-test.xml')
+    , this.generator.destinationPath(`src/main/resources/logback-test.xml`), data)
+    this.generator.fs.copyTpl(this.generator.templatePath('src/main/resources/_logback-prod.xml')
+    , this.generator.destinationPath(`src/main/resources/logback-prod.xml`), data)
   }
 }
