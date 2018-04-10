@@ -55,10 +55,12 @@ module.exports = class {
     const baseDestPath = `src/main/kotlin/${data.groupCases.splitBySlash}/${data.nameCases.splitBySlash}`
     this.generator.fs.copyTpl(this.generator.templatePath(`${baseTplPath}/_Application.kt`)
       , this.generator.destinationPath(`${baseDestPath}/${data.nameCases.hump}Application.kt`), data)
-    this.generator.fs.copyTpl(this.generator.templatePath(`${baseTplPath}/config/_Constants.kt`)
+    this.generator.fs.copyTpl(this.generator.templatePath(`${baseTplPath}/config/_Constants.java`)
       , this.generator.destinationPath(`${baseDestPath}/config/Constants.java`), data)
-    this.generator.fs.copyTpl(this.generator.templatePath(`${baseTplPath}/config/_MapperScanConfiguration.kt`)
-    , this.generator.destinationPath(`${baseDestPath}/config/MapperScanConfiguration.kt`), data)
+    this.generator.fs.copyTpl(this.generator.templatePath(`${baseTplPath}/config/_MybatisPlusConfiguration.kt`)
+    , this.generator.destinationPath(`${baseDestPath}/config/MybatisPlusConfiguration.kt`), data)
+    this.generator.fs.copyTpl(this.generator.templatePath(`${baseTplPath}/config/_SwaggerConfiguration.kt`)
+    , this.generator.destinationPath(`${baseDestPath}/config/SwaggerConfiguration.kt`), data)
   }
 
   /**
@@ -79,7 +81,6 @@ module.exports = class {
       'gradlew.bat',
       'CHANGELOG.md',
       'src/main/resources/liquibase/master.xml',
-      'src/main/resources/bootstrap.yml'
     ]
 
     for (const file of files) {
