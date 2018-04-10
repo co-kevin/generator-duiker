@@ -1,4 +1,4 @@
-package io.github.microservice.components.message.config;
+package <%= groupCases.splitByDot %>.<%= nameCases.splitByDot %>.config;
 
 /**
  * @author hookszhang on 30/10/2017.

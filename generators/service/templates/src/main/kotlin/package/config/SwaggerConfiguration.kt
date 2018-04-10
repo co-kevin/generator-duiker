@@ -1,4 +1,4 @@
-package io.github.microservice.components.message.config
+package <%= groupCases.splitByDot %>.<%= nameCases.splitByDot %>.config
 
 import org.slf4j.LoggerFactory
 import org.springframework.beans.factory.annotation.Value
@@ -32,7 +32,7 @@ class SwaggerConfiguration {
 
     @Bean
     fun createRestApi(): Docket {
-        log.debug("Starting Swagger")
+        log.info("Starting Swagger")
         val watch = StopWatch()
         watch.start()
 
@@ -46,11 +46,11 @@ class SwaggerConfiguration {
         val docket = Docket(DocumentationType.SWAGGER_2)
                 .apiInfo(apiInfo)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("io.github.microservice.components.message.web.rest"))
+                .apis(RequestHandlerSelectors.basePackage("<%= groupCases.splitByDot %>.<%= nameCases.splitByDot %>.web.rest"))
                 .paths(PathSelectors.any())
                 .build()
         watch.stop()
-        log.debug("Started Swagger in {} ms", watch.totalTimeMillis)
+        log.info("Started Swagger in {} ms", watch.totalTimeMillis)
         return docket
     }
 }

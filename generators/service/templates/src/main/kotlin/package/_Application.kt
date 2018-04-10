@@ -1,4 +1,4 @@
-package io.github.microservice.components.message
+package <%= groupCases.splitByDot %>.<%= nameCases.splitByDot %>
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
@@ -8,8 +8,8 @@ import org.springframework.cloud.openfeign.EnableFeignClients
 @EnableFeignClients
 @EnableEurekaClient
 @SpringBootApplication
-class MessageApplication
+class <%= nameCases.hump %>Application
 
 fun main(args: Array<String>) {
-    runApplication<MessageApplication>(*args)
+    runApplication<<%= nameCases.hump %>Application>(*args)
 }

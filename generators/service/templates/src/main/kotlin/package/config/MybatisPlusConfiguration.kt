@@ -1,4 +1,4 @@
-package io.github.microservice.components.message.config
+package <%= groupCases.splitByDot %>.<%= nameCases.splitByDot %>.config
 
 import com.baomidou.mybatisplus.plugins.PerformanceInterceptor
 import org.mybatis.spring.annotation.MapperScan
@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration
 import org.springframework.context.annotation.Profile
 
 @Configuration
-@MapperScan("io.github.microservice.components.message.mapper*")
+@MapperScan("<%= groupCases.splitByDot %>.<%= nameCases.splitByDot %>.mapper*")
 class MybatisPlusConfiguration {
     /**
      * SQL执行效率插件
