@@ -1,5 +1,5 @@
 server:
-  port: 10002
+  port: <%= nameCases.kebab %>
 
 eureka:
     instance:
@@ -11,6 +11,6 @@ eureka:
 
 spring:
     application:
-        name: message
+        name: <%= name %>
     profiles:
         active: ${activeprofile:dev}

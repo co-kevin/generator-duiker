@@ -7,13 +7,13 @@ spring:
 
 spring.sleuth.rxjava.schedulers.hook.enabled: false
 
-eureka.instance.metadataMap.cluster: ${name:message}
+eureka.instance.metadataMap.cluster: ${name:<%= name %>}
 
 info:
     project:
         version: 0.0.1-SNAPSHOT
-        title: message
-        description: message service
+        title: <%= name %>
+        description: <%= name %> service
 
 mybatis-plus:
     mapper-locations: classpath:/mapper/*Mapper.xml
