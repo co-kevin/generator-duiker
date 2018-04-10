@@ -1,0 +1,81 @@
+buildscript {
+    ext {
+        kotlinVersion = '1.2.30'
+        springBootVersion = '2.0.1.RELEASE'
+    }
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
+        classpath("org.jetbrains.kotlin:kotlin-allopen:${kotlinVersion}")
+    }
+}
+
+apply plugin: 'kotlin'
+apply plugin: 'kotlin-spring'
+apply plugin: 'eclipse'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+group = 'io.github.microservice.components'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = 1.8
+compileKotlin {
+    kotlinOptions {
+        freeCompilerArgs = ["-Xjsr305=strict"]
+        jvmTarget = "1.8"
+    }
+}
+compileTestKotlin {
+    kotlinOptions {
+        freeCompilerArgs = ["-Xjsr305=strict"]
+        jvmTarget = "1.8"
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url "https://repo.spring.io/milestone" }
+}
+
+
+ext {
+    springfoxVersion = '2.7.0'
+    springCloudVersion = 'Finchley.M9'
+    servletApiVersion = '4.0.0'
+    persistenceVersion = '2.2'
+    mybatisplusVersion = '2.1.4'
+    mybatisplusStarterVersion = '1.0.5'
+    liquibaseVersion = '3.5.3'
+}
+
+dependencies {
+    compile('com.fasterxml.jackson.module:jackson-module-kotlin')
+    compile("io.springfox:springfox-swagger2:${springfoxVersion}")
+    compile("com.baomidou:mybatisplus-spring-boot-starter:${mybatisplusStarterVersion}")
+    compile("com.baomidou:mybatis-plus:${mybatisplusVersion}")
+    compile('org.springframework.boot:spring-boot-starter-data-redis')
+    compile('org.springframework.cloud:spring-cloud-starter-netflix-eureka-server')
+    compile('org.springframework.cloud:spring-cloud-starter-openfeign')
+    compile('org.springframework.cloud:spring-cloud-starter-zipkin')
+    compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    compile("org.jetbrains.kotlin:kotlin-reflect")
+    compile("javax.servlet:javax.servlet-api:${servletApiVersion}")
+    compile("javax.persistence:javax.persistence-api:${persistenceVersion}")
+    runtime('mysql:mysql-connector-java')
+    compile("org.liquibase:liquibase-core:${liquibaseVersion}")
+    compile("com.alibaba:druid:1.1.5")
+    compile("io.jsonwebtoken:jjwt:0.9.0")
+    compile("com.xiaoleilu:hutool-all:3.2.2")
+    compile("io.springfox:springfox-swagger2:${springfoxVersion}")
+    compile("io.springfox:springfox-swagger-ui:${springfoxVersion}")
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
