@@ -55,8 +55,8 @@ module.exports = class {
     const baseDestPath = `src/main/kotlin/${data.groupCases.splitBySlash}/${data.nameCases.splitBySlash}`
     this.generator.fs.copyTpl(this.generator.templatePath(`${baseTplPath}/_Application.kt`)
       , this.generator.destinationPath(`${baseDestPath}/${data.nameCases.hump}Application.kt`), data)
-    this.generator.fs.copyTpl(this.generator.templatePath(`${baseTplPath}/config/_Constants.java`)
-      , this.generator.destinationPath(`${baseDestPath}/config/Constants.java`), data)
+    this.generator.fs.copyTpl(this.generator.templatePath(`${baseTplPath}/config/_Constants.kt`)
+      , this.generator.destinationPath(`${baseDestPath}/config/Constants.kt`), data)
     this.generator.fs.copyTpl(this.generator.templatePath(`${baseTplPath}/config/_MybatisPlusConfiguration.kt`)
     , this.generator.destinationPath(`${baseDestPath}/config/MybatisPlusConfiguration.kt`), data)
     this.generator.fs.copyTpl(this.generator.templatePath(`${baseTplPath}/config/_SwaggerConfiguration.kt`)
