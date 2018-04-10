@@ -4,6 +4,5 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
 
-    <include file="liquibase/changelog/20180409102553_add_table_log_sys_sms.sql" relativeToChangelogFile="false"/>
-
+    <!--<include file="liquibase/changelog/00000000000000_initial_master.sql" relativeToChangelogFile="false"/>-->
 </databaseChangeLog>
