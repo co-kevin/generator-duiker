@@ -1,5 +1,5 @@
 server:
-  port: <%= nameCases.kebab %>
+  port: <%= port %>
 
 eureka:
     instance:
