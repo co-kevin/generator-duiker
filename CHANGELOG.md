@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.0.0] - 2018-4-12
+### Fixed
+
+- Use kotlin language
+
 ## [2.1.1] - 2017-12-26
 ### Fixed
 
