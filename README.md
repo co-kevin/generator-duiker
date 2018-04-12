@@ -24,7 +24,7 @@ v8.9.1
 开始
 
 ```
-$ npm install -g generator-duiker
+$ npm i -g generator-duiker
 ```
 
 ### Mirco Service
@@ -33,7 +33,7 @@ $ npm install -g generator-duiker
 
 ```
 $ mkdir mirco-service && cd mirco-service
-$ yo duiker
+$ yo duiker:service
 ```
 
 ### Entity
@@ -50,6 +50,5 @@ $ yo duiker:entity
 ## Upgrade
 
 ```
-$ cd generator-duiker
-$ git pull
+$ npm up -g generator-duiker
 ```
