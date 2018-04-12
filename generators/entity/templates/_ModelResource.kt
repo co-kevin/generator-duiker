@@ -15,7 +15,7 @@ import javax.validation.Valid
  * Rest controller. <%= entityClass %>
  */
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/rpc")
 class <%= entityClass %>Resource(private val service: <%= entityClass %>Service) {
 
     private val log = LoggerFactory.getLogger(javaClass)
