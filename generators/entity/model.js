@@ -90,6 +90,7 @@ module.exports = class {
       }
 
       switch (column.DATA_TYPE) {
+        case 'json':
         case 'text':
         case 'mediumtext':
         case 'longtext':
