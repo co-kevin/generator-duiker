@@ -24,7 +24,6 @@ function isIgnoreNotNull(columnName) {
 }
 // 逗号，i 是当前循环次数，limit 是最大循环次数，最后一次不加逗号
 function comma(i, limit) {
-  console.log(i, limit)
   if (i < limit - 1) {
     return ','
   } else {
