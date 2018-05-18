@@ -44,9 +44,8 @@ data class <%= entityClass %> (
         <%_ const column = columns[i] _%>
         <%_ if ('id' === column.COLUMN_NAME) { _%>
         @field:Id
-        @field:GeneratedValue(strategy = GenerationType.IDENTITY)
         @field:Column(name = "id")
-        var id: Int? = null,
+        var id: String? = null,
         <%_ } else { _%>
             <%_ if ('NO' === column.IS_NULLABLE && !isIgnoreNotNull(column.COLUMN_NAME)) { _%>
         @field:NotNull

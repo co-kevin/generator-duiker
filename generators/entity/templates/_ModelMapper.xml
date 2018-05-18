@@ -5,7 +5,7 @@
     <%_ for (var i = 0; i < columns.length; i++) { _%>
       <%_ var column = columns[i] _%>
       <%_ if ('id' === column.COLUMN_NAME) { _%>
-    <id column="id" jdbcType="INTEGER" property="id" />
+    <id column="id" jdbcType="VARCHAR" property="id" />
       <%_ } else { _%>
     <result column="<%= column.COLUMN_NAME %>" jdbcType="<%= column.DATA_TYPE.toUpperCase() %>" property="<%= column.fieldName %>" />
       <%_ } _%>
