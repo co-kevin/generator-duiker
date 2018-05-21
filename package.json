@@ -1,11 +1,12 @@
 {
   "name": "generator-duiker",
-  "version": "3.0.1",
-  "main": "index.js",
+  "version": "3.0.3",
+  "main": "generators/app/index.js",
   "license": "MIT",
   "files": [
-    "app"
+    "generators"
   ],
+  "keywords": ["duiker"],
   "dependencies": {
     "lodash": "^4.17.4",
     "moment": "^2.19.2",

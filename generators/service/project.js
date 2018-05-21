@@ -78,7 +78,6 @@ module.exports = class {
       'gradle/wrapper/gradle-wrapper.jar',
       'gradle/wrapper/gradle-wrapper.properties',
       '.editorconfig',
-      '.gitignore',
       'gradlew',
       'gradlew.bat',
       'CHANGELOG.md',
@@ -101,6 +100,7 @@ module.exports = class {
 
     this.generator.fs.copyTpl(this.generator.templatePath('_build.gradle'), this.generator.destinationPath(`build.gradle`), data)
     this.generator.fs.copyTpl(this.generator.templatePath(`_README.md`), this.generator.destinationPath(`README.md`), data)
+    this.generator.fs.copyTpl(this.generator.templatePath(`_.gitignore`), this.generator.destinationPath(`.gitignore`), data)
     // this.generator.fs.copyTpl(this.generator.templatePath(`src/main/resources/_logback-spring.xml`), this.generator.destinationPath(`src/main/resources/logback-spring.xml`), data)
   }
 
