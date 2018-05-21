@@ -37,12 +37,13 @@ compileTestKotlin {
 
 repositories {
     mavenCentral()
+    jcenter()
     maven { url "https://repo.spring.io/milestone" }
 }
 
 ext {
     springfoxVersion = '2.9.0'
-    springCloudVersion = 'Finchley'
+    springCloudVersion = 'Finchley.RC1'
     servletApiVersion = '4.0.0'
     persistenceVersion = '2.2'
     mybatisplusStarterVersion = '2.3'
