@@ -59,6 +59,8 @@ module.exports = class {
       , this.generator.destinationPath(`${baseDestPath}/config/Constants.kt`), data)
     this.generator.fs.copyTpl(this.generator.templatePath(`${baseTplPath}/config/_MybatisPlusConfiguration.kt`)
     , this.generator.destinationPath(`${baseDestPath}/config/MybatisPlusConfiguration.kt`), data)
+    this.generator.fs.copyTpl(this.generator.templatePath(`${baseTplPath}/config/_ApplicationProperties.kt`)
+    , this.generator.destinationPath(`${baseDestPath}/config/ApplicationProperties.kt`), data)
     this.generator.fs.copyTpl(this.generator.templatePath(`${baseTplPath}/config/_SwaggerConfiguration.kt`)
     , this.generator.destinationPath(`${baseDestPath}/config/SwaggerConfiguration.kt`), data)
   }
