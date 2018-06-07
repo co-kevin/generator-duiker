@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [3.0.4] - 2018-6-7
+### Fixed
+
+- Bug Fix: mybatis-plus primary key type
+
 ## [3.0.3] - 2018-5-21
 ### Fixed
 
