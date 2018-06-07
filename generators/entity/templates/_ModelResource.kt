@@ -68,7 +68,7 @@ class <%= entityClass %>Resource(private val service: <%= entityClass %>Service)
      */
     @GetMapping("/<%= tableName %>/info")
     @ApiOperation(value = "get the \"id\" <%= tableName %>", response = <%= entityClass %>::class)
-    fun get<%= entityClass %>(@RequestParam id: Int?): ResponseEntity<<%= entityClass %>> {
+    fun get<%= entityClass %>(@RequestParam id: String?): ResponseEntity<<%= entityClass %>> {
         log.debug("REST request to get <%= entityClass %> : {}", id)
         val entity = service.selectById(id)
         return ResponseEntity.ok(entity)
@@ -81,7 +81,7 @@ class <%= entityClass %>Resource(private val service: <%= entityClass %>Service)
      * @return
      */
     @DeleteMapping("/<%= tableName %>")
-    fun delete<%= entityClass %>(@RequestParam id: Int?) {
+    fun delete<%= entityClass %>(@RequestParam id: String?) {
         log.debug("REST request to delete <%= entityClass %> : {}", id)
         service.deleteById(id)
     }
