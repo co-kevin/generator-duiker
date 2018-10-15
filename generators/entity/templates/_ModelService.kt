@@ -1,6 +1,6 @@
 package <%= groupCases.splitByDot %>.<%= nameCases.splitByDot %>.service
 
-import com.baomidou.mybatisplus.service.impl.ServiceImpl
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl
 import <%= groupCases.splitByDot %>.<%= nameCases.splitByDot %>.mapper.<%= entityClass %>Mapper
 import <%= groupCases.splitByDot %>.<%= nameCases.splitByDot %>.model.<%= entityClass %>
 import org.slf4j.LoggerFactory
