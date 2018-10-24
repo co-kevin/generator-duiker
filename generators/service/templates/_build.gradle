@@ -42,11 +42,11 @@ repositories {
 }
 
 ext {
-    springfoxVersion = '2.9.0'
+    springfoxVersion = '2.9.2'
     springCloudVersion = 'Finchley.RC1'
     servletApiVersion = '4.0.0'
     persistenceVersion = '2.2'
-    mybatisplusStarterVersion = '2.3'
+    mybatisplusStarterVersion = '3.0.5'
     liquibaseVersion = '3.6.1'
 }
 
@@ -63,7 +63,7 @@ dependencies {
     compile("javax.persistence:javax.persistence-api:${persistenceVersion}")
     runtime('mysql:mysql-connector-java')
     compile("org.liquibase:liquibase-core:${liquibaseVersion}")
-    compile("com.alibaba:druid:1.1.5")
+    compile("com.alibaba:druid:1.1.12")
     compile("com.xiaoleilu:hutool-all:3.2.2")
     compile("io.springfox:springfox-swagger2:${springfoxVersion}")
     compile("io.springfox:springfox-swagger-ui:${springfoxVersion}")
