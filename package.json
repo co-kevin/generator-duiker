@@ -1,6 +1,6 @@
 {
   "name": "generator-duiker",
-  "version": "3.0.4",
+  "version": "4.0.0",
   "main": "generators/app/index.js",
   "license": "MIT",
   "files": [

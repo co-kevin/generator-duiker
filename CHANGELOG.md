@@ -4,6 +4,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## [4.0.0] - 2018-10-25
+###  Updated
+
+- Upgrade mybatis-plus version to 3.0.5
+- Upgrade spring-fox version to 2.9.2
+- Upgrade alibaba druid version to 1.1.12
+- Upgrade gradle version to 4.10.2
+
 ## [3.0.4] - 2018-6-7
 ### Fixed
 
