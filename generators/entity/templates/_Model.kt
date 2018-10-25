@@ -1,5 +1,7 @@
 package <%= groupCases.splitByDot %>.<%= nameCases.splitByDot %>.model
 
+import com.baomidou.mybatisplus.annotation.IdType
+import com.baomidou.mybatisplus.annotation.TableId
 <%_ for (var e of enums) { _%>
 import <%= groupCases.splitByDot %>.<%= nameCases.splitByDot %>.enums.<%= e.enumClass %>
 <%_ } _%>
@@ -43,7 +45,7 @@ data class <%= entityClass %> (
     <%_ for (var i = 0; i < columns.length; i++) { _%>
         <%_ const column = columns[i] _%>
         <%_ if ('id' === column.COLUMN_NAME) { _%>
-        @field:Id
+        @field:TableId(type = IdType.UUID)
         @field:Column(name = "id")
         var id: String? = null,
         <%_ } else { _%>

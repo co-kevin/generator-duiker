@@ -1,6 +1,8 @@
 package <%= groupCases.splitByDot %>.<%= nameCases.splitByDot %>.web.rest
 
-import com.baomidou.mybatisplus.plugins.Page
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper
+import com.baomidou.mybatisplus.core.metadata.IPage
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page
 import <%= groupCases.splitByDot %>.<%= nameCases.splitByDot %>.model.<%= entityClass %>
 import <%= groupCases.splitByDot %>.<%= nameCases.splitByDot %>.service.<%= entityClass %>Service
 import io.swagger.annotations.ApiOperation
@@ -29,7 +31,7 @@ class <%= entityClass %>Resource(private val service: <%= entityClass %>Service)
     @PostMapping("/<%= tableName %>")
     fun create<%= entityClass %>(@Valid @RequestBody <%= entityClassCamelCase %>: <%= entityClass %>): ResponseEntity<<%= entityClass %>> {
         log.debug("REST request to save <%= entityClass %> : {}", <%= entityClassCamelCase %>)
-        service.insert(<%= entityClassCamelCase %>)
+        service.save(<%= entityClassCamelCase %>)
         return ResponseEntity.ok(<%= entityClassCamelCase %>)
     }
 
@@ -55,8 +57,10 @@ class <%= entityClass %>Resource(private val service: <%= entityClass %>Service)
     @SuppressWarnings("unchecked")
     @GetMapping("/<%= tableName %>")
     @ApiOperation(value = "get all <%= tableName %>.", response = Page::class)
-    fun getAll<%= entityClass %>(@ApiParam pageable: Page<<%= entityClass %>>): ResponseEntity<Page<<%= entityClass %>>> {
-        val page = service.selectPage(pageable)
+    fun getAll<%= entityClass %>(@ApiParam pageable: Page<<%= entityClass %>>): ResponseEntity<IPage<<%= entityClass %>>> {
+        val wrapper = QueryWrapper<<%= entityClass %>>()
+        //TODO add query params or set to null
+        val page = service.page(pageable, wrapper)
         return ResponseEntity.ok(page)
     }
 
@@ -70,7 +74,7 @@ class <%= entityClass %>Resource(private val service: <%= entityClass %>Service)
     @ApiOperation(value = "get the \"id\" <%= tableName %>", response = <%= entityClass %>::class)
     fun get<%= entityClass %>(@RequestParam id: String?): ResponseEntity<<%= entityClass %>> {
         log.debug("REST request to get <%= entityClass %> : {}", id)
-        val entity = service.selectById(id)
+        val entity = service.getById(id)
         return ResponseEntity.ok(entity)
     }
 
@@ -83,6 +87,6 @@ class <%= entityClass %>Resource(private val service: <%= entityClass %>Service)
     @DeleteMapping("/<%= tableName %>")
     fun delete<%= entityClass %>(@RequestParam id: String?) {
         log.debug("REST request to delete <%= entityClass %> : {}", id)
-        service.deleteById(id)
+        service.removeById(id)
     }
 }
