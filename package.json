@@ -8,7 +8,7 @@
   ],
   "keywords": ["duiker"],
   "dependencies": {
-    "lodash": "^4.17.4",
+    "lodash": "^4.17.13",
     "moment": "^2.19.2",
     "mysql": "^2.15.0",
     "yeoman-generator": "^2.0.1"
