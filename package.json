@@ -9,7 +9,7 @@
   "keywords": ["duiker"],
   "dependencies": {
     "lodash": "^4.17.13",
-    "moment": "^2.19.2",
+    "moment": "^2.19.3",
     "mysql": "^2.15.0",
     "yeoman-generator": "^2.0.1"
   }
